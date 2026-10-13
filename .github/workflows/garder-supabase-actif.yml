@@ -1,0 +1,14 @@
+# Supabase met en pause les projets gratuits inutilisés pendant 7 jours.
+# Cette tâche visite la base tous les 3 jours pour la garder active.
+name: Garder Supabase actif
+on:
+  schedule:
+    - cron: "17 6 */3 * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Visiter la base
+        run: node -e "global.window={};require('./config.js');const c=window.BOS_CONFIG;fetch(c.url+'/rest/v1/bos_pages?select=path&limit=1',{headers:{apikey:c.key}}).then(r=>{console.log('Statut',r.status);if(!r.ok)process.exit(1)})"
