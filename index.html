@@ -1277,7 +1277,7 @@ const unitsOf=a=>{const l=a&&Array.isArray(a.units)&&a.units.length?a.units:[(a&
 const unitOf=a=>UNITS[unitsOf(a)[0]]||UNITS.bos;
 const READALL=a=>unitsOf(a).some(k=>k==="direction"||OBS(k));
 const LOCKER=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).some(k=>k==="direction"||k==="amiraute"||k==="brs"));
-const SEEALL=()=>IS_ADMIN||!!(SESSION&&READALL(SESSION));
+const SEEALL=()=>LOCKER();
 const roleLabel=a=>a.role==="owner"?"Propriétaire":a.role==="admin"?"Admin":unitsOf(a).some(OBS)?"Lecture intégrale":unitsOf(a).includes("direction")?"Direction":"Membre";
 const uvars=u=>`--uc:${u.c};--ut:${u.t}`;
 function unitPicker(name,cur){const sel=Array.isArray(cur)?cur:[cur||"bos"];return`<div class="upick" role="group" aria-label="Unités">${UORDER.map(k=>{const u=UNITS[k];
@@ -1384,6 +1384,8 @@ function openLockForm(d){openModal(`<form id="lkf" data-id="${esc(d.id)}"><div c
  <div class="lkd">${LOCKDUR.map(([h,l],i)=>`<label><input type="radio" name="lkh" value="${h}"${i===2?" checked":""}><span>${l}</span></label>`).join("")}</div>
  <p class="mfoot" style="margin:8px 0;padding:0;border:0">Avec une durée, la donnée se déverrouille toute seule à la fin. « Sans limite » : elle reste verrouillée jusqu'à ce que quelqu'un clique sur Déverrouiller.</p>
  <div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Verrouiller</button></div></form>`)}
+function openUnlockForm(d){openModal(`<form id="ulf" data-id="${esc(d.id)}"><div class="sk">Verrouillage</div><h2 id="lgt">Lever le verrou ?</h2><p class="mtxt" style="margin:0 0 12px">« ${esc(d.title||"")} » redeviendra lisible par <b>tout le monde</b>.<br>Pour seulement la lire toi-même, ferme cette fenêtre et clique sur <b>Déchiffrer</b> : elle restera verrouillée pour les autres.</p><div class="mact"><button class="b" id="lgx" type="button">Garder verrouillé</button><button class="b p" type="submit">Lever le verrou</button></div></form>`)}
+$("lgbox").addEventListener("submit",async e=>{const f=e.target;if(f.id!=="ulf")return;e.preventDefault();e.stopImmediatePropagation();const d=dataOf(f.dataset.id);closeModal();if(d)await doLock(d,false,0)},true);
 async function doLock(d,to,hours){const card=document.querySelector(`.term[data-did="${d.id}"]`);
  if(await call("bos_data_lock",{p_id:d.id,p_locked:to,p_hours:hours})){if(card){const s=document.createElement("div");s.className="stamp "+(to?"r":"g");s.textContent=to?"VERROUILLÉ":"DÉVERROUILLÉ";card.appendChild(s);card.classList.add(to?"deny":"grant")}
   if(to)UNLOCKED.delete(d.id);await sleep(900);await refreshData();toast(to?(hours?"Verrouillée pour "+LOCKDUR.find(x=>x[0]===hours)[1]:"Verrouillée sans limite"):"Données déverrouillées",3000)}}
@@ -1400,8 +1402,8 @@ function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a
  const locked=d.restricted&&!(SEEALL()&&UNLOCKED.has(d.id));
  const st=locked?`<span class="tst red">VERROUILLÉ${d.locked_until?` · <span data-until="${esc(d.id)}">${lockLeft(d)}</span>`:""}</span>`:d.restricted?'<span class="tst amber">DÉCHIFFRÉ</span>':'<span class="tst green">ACCÈS ACCORDÉ</span>';
  const ic=p=>svg(p);
- const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}<button type="button" class="tl" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}<span>Modifier</span></button><button type="button" class="tl td" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}<span>Supprimer</span></button></div>`:"";
- const lk=LOCKER()?`<button type="button" class="tlock${d.restricted?" on":""}" data-lock="${esc(d.id)}" title="${d.restricted?"Déverrouiller":"Verrouiller"} (Direction, Amirauté, B.R.S)">${ic(d.restricted?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}<span>${d.restricted?"Déverrouiller":"Verrouiller"}</span></button>`:"";
+ const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}${d.restricted&&!SEEALL()?"":`<button type="button" class="tl" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}<span>Modifier</span></button>`}<button type="button" class="tl td" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}<span>Supprimer</span></button></div>`:"";
+ const lk=LOCKER()?`<button type="button" class="tlock${d.restricted?" on":""}" data-lock="${esc(d.id)}" title="${d.restricted?"Déverrouiller":"Verrouiller"} (Direction, Amirauté, B.R.S)">${ic(d.restricted?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}<span>${d.restricted?"Lever le verrou":"Verrouiller"}</span></button>`:"";
  const meta=`${d.created_by?esc(d.created_by)+" · ":""}${fdate(Date.parse(d.created_at)||Date.now())}`;
  let body;
  if(locked){const fake=["MOT DE PASSE : "+rhex(14).toLowerCase(),"Code : "+rhex(4),"Cible : "+rhex(10),"Coordonnées : "+rhex(6)+"-"+rhex(4),"Rapport : "+rhex(22).toLowerCase(),"Contact : "+rhex(8)];
@@ -1488,7 +1490,7 @@ $("view").addEventListener("click",async e=>{if(!cur.startsWith("~donnees"))retu
  const arm=(b,msg,fn)=>{if(!b.classList.contains("arm")){b.classList.add("arm");b.title=msg;toast(msg,3000);setTimeout(()=>b.classList.remove("arm"),3000);return}fn()};
  const lkb=t.closest("[data-lock]");if(lkb){const d=dataOf(lkb.dataset.lock);if(!d||!LOCKER())return;
   if(!d.restricted){openLockForm(d);return}
-  await doLock(d,false,0);return}
+  openUnlockForm(d);return}
  const dd=t.closest("[data-ddel]");if(dd){arm(dd,"Clique encore pour supprimer ces données",async()=>{if(await call("bos_data_delete",{p_id:dd.dataset.ddel},"Données supprimées"))refreshData()});return}
  const sd=t.closest("[data-sdel]");if(sd){e.preventDefault();const n=DATA.filter(d=>d.section_id===sd.dataset.sdel).length;
   arm(sd,n?"Clique encore : la section et ses "+n+" donnée(s) seront supprimées":"Clique encore pour supprimer la section",async()=>{if(await call("bos_section_delete",{p_id:sd.dataset.sdel},"Section supprimée")){if(cur==="~donnees/"+sd.dataset.sdel)location.hash="#/~donnees";refreshData()}})}});
