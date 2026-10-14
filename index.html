@@ -237,7 +237,7 @@ footer b{color:var(--tx)}
   .sr:focus-within>svg{opacity:0}
   #res{position:fixed;left:50%;transform:translateX(-50%);top:calc(60px + env(safe-area-inset-top,0px));width:min(560px,calc(100vw - 24px));z-index:60}
 }
-@media(max-width:1600px){
+@media(max-width:1240px){
   #burger{display:grid}
   #nav .navacct{display:flex;gap:8px;padding:16px 0 0;margin-top:8px;border-top:1px solid var(--ln)}#nav .navacct .b{flex:1;justify-content:center;height:44px}
   nav#nav{position:fixed;left:0;right:0;top:calc(64px + env(safe-area-inset-top,0px));bottom:0;margin:0;flex-direction:column;align-items:stretch;gap:2px;padding:12px 16px 32px;overflow:auto;
@@ -544,7 +544,15 @@ footer .in{font-family:Rajdhani,sans-serif;letter-spacing:.12em;text-transform:u
 .lk{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid color-mix(in srgb,var(--c) 50%,transparent);background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c);font-weight:600;font-size:12px}
 .ldet{color:#c4c6cf;overflow-wrap:anywhere}
 @media(max-width:860px){.lhead{display:none}.lrow{grid-template-columns:1fr auto;gap:4px 10px}.lrow .ld{grid-column:1;order:2}.lrow .lw{order:1}.lrow>span:nth-child(3){order:0;grid-column:1/-1}.ldet{grid-column:1/-1;order:3}}
-@media(min-width:1601px){body.isadm .brand>div{display:none}}
+@media(min-width:1241px){body.isadm .brand>div{display:none}}
+@media(max-width:1700px) and (min-width:1241px){
+  .hd{gap:8px}
+  .nb{font-size:14px;letter-spacing:.04em;padding:0 7px;gap:4px}
+  .dd .nb svg{width:11px;height:11px}
+  .adm{letter-spacing:.08em;padding:3px 6px;margin-left:0}
+}
+@media(max-width:1500px) and (min-width:1241px){body.isadm .who .wt{display:none}body.isadm .who{width:32px;padding:0;justify-content:center;margin-left:2px}}
+@media(max-width:1400px) and (min-width:1241px){.nb{font-size:13px;letter-spacing:.02em;padding:0 6px}.nb.nbdata i{display:none}.brand>div{display:none}}
 @media(min-width:1801px){
   body.isadm .sr kbd{display:none}
   body.isadm #q{width:40px;padding:0;color:transparent;cursor:pointer}
@@ -885,7 +893,7 @@ function nav(){if(!SESSION){$("nav").innerHTML="";return}let h=`<a class="nb${cu
 function closeMenus(except){document.querySelectorAll(".menu.open").forEach(m=>{if(m!==except){m.classList.remove("open");const b=m.previousElementSibling;if(b)b.setAttribute("aria-expanded","false")}})}
 $("nav").addEventListener("click",e=>{const b=e.target.closest(".dd>.nb");if(b){const m=b.nextElementSibling,o=hoverable.matches?true:!m.classList.contains("open");closeMenus(m);m.classList.toggle("open",o);b.setAttribute("aria-expanded",o);return}
  if(e.target.closest("a"))closeAll()});
-const hoverable=matchMedia("(hover:hover) and (min-width:1601px)");
+const hoverable=matchMedia("(hover:hover) and (min-width:1241px)");
 $("nav").addEventListener("mouseover",e=>{if(!hoverable.matches)return;const d=e.target.closest(".dd");if(!d)return;const m=d.querySelector(".menu");if(!m.classList.contains("open")){closeMenus(m);m.classList.add("open");d.firstElementChild.setAttribute("aria-expanded","true")}});
 $("nav").addEventListener("mouseleave",()=>{if(hoverable.matches)closeMenus()});
 function closeAll(){closeMenus();$("nav").classList.remove("open");$("burger").setAttribute("aria-expanded","false");$("res").classList.remove("open");document.body.style.overflow=""}
