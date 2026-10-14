@@ -769,6 +769,116 @@ body.locked .hx{min-height:calc(100vh - 200px)}
 @media(max-width:1600px) and (min-width:1301px){.nb{font-size:13px;letter-spacing:.08em;padding:0 7px;gap:6px}#nav .nb svg.ni{width:15px;height:15px}}
 @media(max-width:1400px) and (min-width:1301px){.nb{font-size:12.5px;letter-spacing:.04em;padding:0 6px;gap:5px}#nav .nb svg.ni{width:14px;height:14px}}
 @media(max-width:1300px){.nb{font-size:17px;letter-spacing:.1em;justify-content:flex-start}#nav .nb svg.ni{width:18px;height:18px}.dd .nb svg:not(.ni){margin-left:auto}}
+/* ---------- Unités : sélecteur, équipe ---------- */
+.upick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:2px;text-transform:none;letter-spacing:0}
+.uopt{position:relative;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #24242b;border-radius:6px;background:#0b0b0d;cursor:pointer;transition:border-color .15s,background .15s}
+.uopt input{position:absolute;opacity:0;pointer-events:none}
+.uopt img{width:34px;height:34px;flex:none;border-radius:50%;background:#000;box-shadow:0 0 0 1px color-mix(in srgb,var(--uc) 60%,transparent)}
+.uopt b{display:block;color:var(--tx);font:700 14px Rajdhani,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.uopt small{display:block;color:var(--mu);font:12px/1.3 Inter,sans-serif}
+.uopt span{min-width:0}
+.uopt:hover{border-color:color-mix(in srgb,var(--uc) 60%,#24242b)}
+.uopt:has(input:checked){border-color:var(--uc);background:color-mix(in srgb,var(--uc) 14%,#050506);box-shadow:0 0 0 1px var(--uc),0 0 22px color-mix(in srgb,var(--uc) 30%,transparent)}
+.uopt:has(input:checked) b{color:var(--ut)}
+.uopt:has(input:focus-visible){outline:2px solid var(--ut);outline-offset:2px}
+.obsnote{margin:-4px 0 12px;padding:10px 12px;border-left:3px solid #c9a227;background:rgba(201,162,39,.08);color:#d8d2bd;font-size:13px}
+.newacc .fld.nunit,.newacc .obsnote{grid-column:1/-1;margin-bottom:0}
+@media(max-width:640px){.upick{grid-template-columns:1fr 1fr}}
+.usec{--uc:#e3212b;--ut:#ff6b72;margin-top:18px}
+.ush{display:flex;align-items:center;gap:12px;padding:10px 14px;margin-bottom:10px;border:1px solid color-mix(in srgb,var(--uc) 45%,#1d1d22);border-left:4px solid var(--uc);border-radius:6px;background:linear-gradient(90deg,color-mix(in srgb,var(--uc) 16%,#000),#050506 70%)}
+.ush img{width:38px;height:38px;border-radius:50%;background:#000}
+.ush b{display:block;color:var(--ut);font:800 16px Orbitron,Rajdhani,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.ush small{color:var(--mu);font-size:13px}
+.ush em{margin-left:auto;font:700 14px Orbitron,sans-serif;font-style:normal;color:var(--ut);padding:2px 10px;border:1px solid color-mix(in srgb,var(--uc) 50%,transparent);border-radius:999px}
+.usec .av{background:color-mix(in srgb,var(--uc) 22%,#000);border-color:color-mix(in srgb,var(--uc) 70%,transparent);color:var(--ut)}
+.usec .av.own{background:var(--ac);border-color:var(--ac);color:#fff}
+.usec .role.r-obs{border-color:var(--uc);color:var(--ut);background:color-mix(in srgb,var(--uc) 12%,transparent)}
+.usec .tnote{margin:0 0 4px;font-size:13px}
+.who .wa{background:var(--uc,var(--ac))}
+.who.on{border-color:color-mix(in srgb,var(--uc,#2a2a31) 55%,#2a2a31)}
+.mtxt .uline{display:inline-flex;align-items:center;gap:6px;color:var(--ut)}
+.mtxt .uline img{width:20px;height:20px;border-radius:50%}
+/* ---------- Espace d'unité ---------- */
+.usp{position:relative;overflow:hidden;margin-top:18px;padding:26px 28px;border:1px solid color-mix(in srgb,var(--uc) 45%,#1d1d22);border-radius:14px;background:radial-gradient(80% 120% at 100% 0,color-mix(in srgb,var(--uc) 22%,transparent),transparent 60%),#040405;color:var(--tx)}
+.usp::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--uc),transparent)}
+.usp-h{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.usp-h img{width:62px;height:62px;border-radius:50%;background:#000;box-shadow:0 0 0 2px var(--uc),0 0 30px color-mix(in srgb,var(--uc) 45%,transparent)}
+.usp-h>div{flex:1;min-width:220px}
+.usp-k{color:var(--ut);font:700 12px Rajdhani,sans-serif;letter-spacing:.3em;text-transform:uppercase}
+.usp-h h2{margin:2px 0 4px;font:900 clamp(22px,3vw,30px) Orbitron,Rajdhani,sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.usp-h p{margin:0;color:var(--mu);font-size:15px}
+.usp-b{padding:6px 12px;border:1px solid var(--uc);border-radius:4px;background:color-mix(in srgb,var(--uc) 14%,transparent);color:var(--ut);font:700 13px Rajdhani,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.usp-f{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;color:var(--mu);font-size:13px}
+/* ARC */
+.arc-g{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:center}
+.arc-ring{--p:0;display:grid;place-items:center;align-content:center;width:180px;height:180px;margin:auto;border-radius:50%;background:radial-gradient(closest-side,#040405 78%,transparent 79% 100%),conic-gradient(var(--uc) calc(var(--p)*1%),#14203a 0);box-shadow:0 0 40px color-mix(in srgb,var(--uc) 35%,transparent)}
+.arc-ring b{font:900 34px Orbitron,sans-serif;color:var(--ut)}.arc-ring small{color:var(--mu);font-size:13px}
+.arc-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.arc-d{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #182742;border-radius:8px;background:#060b16;color:var(--tx);text-align:left;cursor:pointer;transition:.15s}
+.arc-d svg{width:26px;height:26px;flex:none;color:var(--ut)}
+.arc-d span{flex:1;min-width:0}.arc-d b{display:block;font:700 15px Rajdhani,sans-serif;letter-spacing:.1em;text-transform:uppercase}.arc-d small{color:var(--mu);font-size:12.5px}
+.arc-d i{font:700 10px Orbitron,sans-serif;font-style:normal;letter-spacing:.12em;color:var(--mu);padding:3px 6px;border:1px solid #22324f;border-radius:3px}
+.arc-d:hover{border-color:var(--uc)}
+.arc-d.ok{border-color:var(--uc);background:color-mix(in srgb,var(--uc) 16%,#060b16)}.arc-d.ok i{color:#fff;background:var(--uc);border-color:var(--uc)}
+/* Omega */
+.usp-omega{background:linear-gradient(135deg,#0a1222,#020306 70%);border-color:#2a3d66}
+.om-g{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}
+.om-day{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:22px;border:1px solid #2a3d66;border-radius:10px;background:linear-gradient(160deg,#16233f,#070b14)}
+.om-visor{position:absolute;right:-10px;top:50%;width:150px;height:150px;transform:translateY(-50%);opacity:.18;background:#c9d4ea;clip-path:polygon(0 10%,100% 10%,100% 32%,62% 32%,62% 100%,38% 100%,38% 32%,0 32%)}
+.om-day small{color:#7d93bf;font:700 12px Rajdhani,sans-serif;letter-spacing:.28em;text-transform:uppercase}
+.om-day b{font:900 clamp(28px,4vw,40px) Orbitron,sans-serif;color:#dfe8fb;text-shadow:0 0 22px rgba(138,168,224,.5)}
+.om-day span{color:#aab9d8;font-size:15px}
+.om-res{padding:18px 20px;border:1px solid #1f2e4f;border-radius:10px;background:#060a13}
+.om-res h3,.brs-c h3,.brs-r h3{margin:0 0 12px;font:700 15px Rajdhani,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ut)}
+.om-res ol{margin:0;padding:0;list-style:none;counter-reset:r;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.om-res li{counter-increment:r;display:flex;align-items:center;gap:10px;color:#cfd8ea;font-size:14px}
+.om-res li::before{content:counter(r);display:grid;place-items:center;width:24px;height:24px;flex:none;border-radius:4px;background:#1d3361;color:#dfe8fb;font:700 12px Orbitron,sans-serif}
+.om-lex{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
+.om-lex div{padding:10px 12px;border:1px solid #1a2846;border-radius:6px;background:#050912}
+.om-lex b{display:block;color:#dfe8fb;font:700 14px Orbitron,sans-serif;letter-spacing:.04em}.om-lex span{color:#8496bb;font-size:12.5px}
+/* BRS */
+.usp-brs{background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px),radial-gradient(70% 120% at 100% 0,rgba(174,184,204,.16),transparent 60%),#050506}
+.brs-g{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.brs-c,.brs-r{position:relative;padding:18px 20px;border:1px solid #2a2e38;border-radius:10px;background:#08090c}
+.brs-c .fld textarea{min-height:76px;color:#e6ebf5;background:#030304}.brs-c .fld textarea:focus{border-color:#aeb8cc;box-shadow:0 0 0 3px rgba(174,184,204,.15)}
+.brs-a{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.brs-c .b.p{background:#aeb8cc;border-color:#aeb8cc;color:#000}
+.brs-o{margin:0 0 8px;padding:12px;min-height:44px;border:1px solid #23262e;background:#020203;color:#e6ebf5;font:13.5px/1.5 "JetBrains Mono",ui-monospace,monospace;white-space:pre-wrap;word-break:break-word}
+.brs-c>small{color:var(--mu);font-size:12.5px}
+.brs-r ul{margin:0 0 16px;padding-left:18px;color:#cfd4de;font-size:14px;line-height:1.8}
+.brs-stamp{position:absolute;top:16px;right:14px;padding:4px 10px;border:2px solid #ff3b45;color:#ff3b45;font:900 13px Orbitron,sans-serif;letter-spacing:.2em;transform:rotate(8deg);opacity:.85}
+.brs-l{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #3a3f4c;border-radius:8px;background:#0d0f14;color:var(--tx);text-decoration:none}
+.brs-l b{font:900 28px Orbitron,sans-serif;color:#ff6b72}.brs-l span{flex:1;color:var(--mu);font-size:13px}.brs-l svg{width:18px;height:18px;color:var(--ut)}
+.brs-l:hover{border-color:#aeb8cc}
+/* Bad Batch */
+.usp-bb{background:linear-gradient(135deg,rgba(255,122,26,.14),transparent 50%),repeating-linear-gradient(-45deg,rgba(255,122,26,.05) 0 12px,transparent 12px 24px),#060403}
+.bb-s{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.bb-c{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px 14px;border:1px solid #3a2414;border-radius:8px;background:#0c0806;color:var(--tx);text-align:left;cursor:pointer;transition:.15s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+.bb-c svg{width:28px;height:28px;color:var(--ut)}
+.bb-c b{font:800 15px Rajdhani,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.bb-c small{color:var(--mu);font-size:12.5px;flex:1}
+.bb-c i{font:700 10px Orbitron,sans-serif;font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#a86a3b}
+.bb-c:hover{border-color:var(--uc)}
+.bb-c.on{border-color:var(--uc);background:linear-gradient(160deg,rgba(255,122,26,.25),#0c0806 70%);box-shadow:0 0 26px rgba(255,122,26,.3)}.bb-c.on i{color:#ffb27a}
+.bb-m{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:14px;padding:16px 18px;border:1px dashed #5a3418;border-radius:8px;background:#0a0604}
+.bb-m>div{flex:1;min-width:220px}.bb-m small{color:#ffb27a;font:700 12px Rajdhani,sans-serif;letter-spacing:.28em;text-transform:uppercase}
+.bb-m p{margin:4px 0 0;font:500 16px "JetBrains Mono",ui-monospace,monospace;color:#ffe2cc;min-height:24px}
+.bb-m p.typing::after{content:"▌";color:var(--uc);animation:blink .8s steps(2) infinite}
+.usp-bb .b.p{background:var(--uc);border-color:var(--uc);color:#160800;font-weight:700}
+/* Amirauté */
+.usp-amiraute{background:radial-gradient(80% 120% at 100% 0,rgba(201,162,39,.2),transparent 60%),linear-gradient(180deg,#0a0905,#040405)}
+.am-st{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.am-st div{padding:14px 16px;border:1px solid #3a3218;border-radius:8px;background:#0b0a06;color:var(--mu);font-size:13px;text-transform:uppercase;letter-spacing:.14em}
+.am-st b{display:block;font:900 26px Orbitron,sans-serif;color:#ecd27a;letter-spacing:0}
+.am-u{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.am-u a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid color-mix(in srgb,var(--uc) 40%,#1d1d22);border-top:3px solid var(--uc);border-radius:8px;background:#070708;color:var(--tx);text-decoration:none}
+.am-u img{width:40px;height:40px;border-radius:50%;background:#000;margin-bottom:4px}
+.am-u b{font:800 15px Rajdhani,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ut)}
+.am-u small{color:var(--mu);font-size:12px;flex:1}
+.am-u span{display:flex;align-items:center;gap:6px;margin-top:6px;color:var(--ut);font:700 12px Rajdhani,sans-serif;letter-spacing:.16em;text-transform:uppercase}.am-u span svg{width:14px;height:14px}
+.am-u a:hover{background:color-mix(in srgb,var(--uc) 10%,#070708)}
+@media(max-width:1000px){.arc-g,.om-g,.brs-g{grid-template-columns:1fr}.bb-s,.am-u{grid-template-columns:repeat(2,minmax(0,1fr))}.om-lex{grid-template-columns:repeat(2,minmax(0,1fr))}.am-st{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.usp{padding:20px 16px}.arc-l,.om-res ol{grid-template-columns:1fr}.bb-s{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -801,9 +911,9 @@ const HOME="Accueil";
 const U={
  bos:{n:"Brigade des Opérations Spéciales",short:"B.O.S",c:"#e0353c",logo:"bos"},
  brs:{n:"Bureau de Renseignement Sénatorial",short:"B.R.S",c:"#d9dfec",logo:"lb",photo:"brs",tall:1},
- rc:{n:"Republic Commando (Omega)",short:"Republic Commando",c:"#39a7ff",logo:"lo",photo:"rc"},
- arc:{n:"Advanced Recon Commandos",short:"ARC Alpha",c:"#e0b23a",logo:"la",photo:"arc"},
- cf:{n:"Clone Force 99 (Bad Batch)",short:"Bad Batch",c:"#c8a26b",logo:"lc",photo:"cf"}};
+ rc:{n:"Republic Commando (Omega)",short:"Republic Commando",c:"#4a6fb0",logo:"lo",photo:"rc"},
+ arc:{n:"Advanced Recon Commandos",short:"ARC Alpha",c:"#2f7dff",logo:"la",photo:"arc"},
+ cf:{n:"Clone Force 99 (Bad Batch)",short:"Bad Batch",c:"#ff7a1a",logo:"lc",photo:"cf"}};
 const HK=p=>/\(B\.R\.S\)/.test(p)?"brs":/\(RC\)/.test(p)?"rc":/\(Arc Alpha\)/.test(p)?"arc":/\(Bad Batch\)/.test(p)?"cf":"bos";
 const TAGC=t=>/B\.?R\.?S/.test(t)?U.brs.c:/^RC|Republic|\bRC\b/.test(t)?U.rc.c:/ARC|Alpha/.test(t)?U.arc.c:/^CF|Bad Batch/.test(t)?U.cf.c:U.bos.c;
 const SHORT={"Règlements internes":"Règlements","Autorisations de protocole":"Protocoles","B.O.S":"La B.O.S"};
@@ -950,6 +1060,7 @@ function home(){const src=store[HOME]||"",m=/^# (.*)$/m.exec(src),title=m?m[1]:"
   </div>
  </section>`;
  const stats=[[Object.keys(U).length,"unités"],[keys.length-1,"pages d'archives"],[cnt(/Accréditations/,/^### /gm),"accréditations"],[cnt(/Médailles/,/^### /gm),"médailles"],[cnt(/^Règlements internes\/Brigade/,/^\d+\. /gm),"règles B.O.S"]];
+ h+=unitSpace();
  h+=`<div class="stats fade">${stats.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join("")}</div>`;
  h+=`<div class="sec"><div><div class="sk">Guide</div><h2 class="h">Par où commencer ?</h2></div><p>Les trois pages à connaître en priorité.</p></div>
  <div class="steps">
@@ -1068,6 +1179,95 @@ addEventListener("dragleave",e=>{if(!hasFiles(e))return;dragN=Math.max(0,dragN-1
 addEventListener("drop",e=>{if(!hasFiles(e))return;e.preventDefault();dragN=0;$("dropov").classList.remove("on");document.querySelectorAll(".term.drop").forEach(x=>x.classList.remove("drop"));if(dataDrop()){const tc=e.target.closest&&e.target.closest(".term:not(.lk)[data-did]");if(tc)addFiles(e.dataTransfer.files,"~data/"+tc.dataset.did).then(()=>view());else toast("Lâche le fichier sur la fenêtre d'une donnée");return}if(canDrop())addFiles(e.dataTransfer.files,cur);else if(CAN)toast("Ouvre une page du site pour y déposer des fichiers")});
 addEventListener("paste",e=>{if(!canDrop()||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;const fs=e.clipboardData&&e.clipboardData.files;if(fs&&fs.length){e.preventDefault();addFiles(fs,cur)}});
 
+/* ---------- Unités des comptes ---------- */
+const UNITS={
+ bos:{n:"B.O.S",full:"Brigade des Opérations Spéciales",c:"#e3212b",t:"#ff6b72",logo:"bos",k:"bos"},
+ amiraute:{n:"Amirauté",full:"Haut commandement de la flotte",c:"#c9a227",t:"#ecd27a",logo:"cw",k:"bos"},
+ brs:{n:"B.R.S",full:"Bureau de Renseignement Sénatorial",c:"#aeb8cc",t:"#e6ebf5",logo:"lb",k:"brs"},
+ arc:{n:"ARC Alpha",full:"Advanced Recon Commandos",c:"#2f7dff",t:"#7fb0ff",logo:"la",k:"arc"},
+ omega:{n:"Omega",full:"Republic Commando · escouade Omega",c:"#1d3361",t:"#8aa8e0",logo:"lo",k:"rc"},
+ bb:{n:"Bad Batch",full:"Clone Force 99",c:"#ff7a1a",t:"#ffa45c",logo:"lc",k:"cf"}};
+const UORDER=["bos","amiraute","brs","arc","omega","bb"];
+const OBS=u=>u==="amiraute"||u==="brs";
+const unitOf=a=>UNITS[(a&&a.unit)||"bos"]||UNITS.bos;
+const SEEALL=()=>IS_ADMIN||!!(SESSION&&OBS(SESSION.unit));
+const roleLabel=a=>a.role==="owner"?"Propriétaire":a.role==="admin"?"Admin":OBS(a.unit)?"Lecture intégrale":"Membre";
+const uvars=u=>`--uc:${u.c};--ut:${u.t}`;
+function unitPicker(name,curU){return`<div class="upick" role="radiogroup" aria-label="Unité">${UORDER.map(k=>{const u=UNITS[k];
+ return`<label class="uopt" style="${uvars(u)}"><input type="radio" name="${name}" value="${k}"${k===(curU||"bos")?" checked":""}><img src="${IMG[u.logo]}" alt=""><span><b>${u.n}</b><small>${OBS(k)?"Voit tout · ne modifie rien":esc(u.full)}</small></span></label>`}).join("")}</div>`}
+const pickedUnit=(f,name)=>{const r=f.querySelector(`input[name="${name}"]:checked`);return r?r.value:"bos"};
+function syncRole(f){if(!f)return;const r=f.querySelector("input[type=radio]:checked");const s=f.querySelector("#sur,#nar,select[name=r]");if(!r||!s)return;
+ const o=OBS(r.value);if(o)s.value="membre";s.disabled=o;const n=f.querySelector(".obsnote");if(n)n.hidden=!o}
+document.addEventListener("change",e=>{if(e.target.matches(".upick input"))syncRole(e.target.closest("form"))});
+const OBSNOTE='<p class="obsnote" hidden>Amirauté et B.R.S : accès en lecture à tout le site, données restreintes comprises, mais aucune modification possible (ni pages, ni comptes, ni fichiers).</p>';
+
+/* ---------- Espace personnel de chaque unité (page d'accueil) ---------- */
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const weekNo=()=>{const d=new Date();const j=new Date(d.getFullYear(),0,1);return Math.ceil(((d-j)/864e5+j.getDay()+1)/7)};
+const DRILLS=[["Tir de précision","Stand de tir · 3 séries de 20 cibles","<circle cx='12' cy='12' r='8'/><circle cx='12' cy='12' r='3'/><path d='M12 2v4M12 18v4M2 12h4M18 12h4'/>"],
+ ["Infiltration","Parcours furtif sans être détecté","<path d='M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z'/><path d='M4 4l16 16'/>"],
+ ["Combat rapproché","Duel au corps à corps · 5 rounds","<path d='M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2'/>"],
+ ["Réacteur dorsal","Atterrissage précis sur cible marquée","<path d='M12 2c3 3 4 7 4 11l-4 4-4-4c0-4 1-8 4-11zM9 17l-2 4M15 17l2 4'/>"],
+ ["Reconnaissance","Relevé de zone et rapport en 10 minutes","<path d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z'/><path d='M9 3v15M15 6v15'/>"],
+ ["Coordination d'escouade","Manœuvre à quatre sur signaux silencieux","<circle cx='7' cy='8' r='3'/><circle cx='17' cy='8' r='3'/><path d='M2 20c1-3 3-5 5-5s4 2 5 5M12 20c1-3 3-5 5-5s4 2 5 5'/>"]];
+const ARCRANK=p=>p>=100?"Élite ARC":p>=67?"Vétéran":p>=34?"Opérateur":"Recrue";
+const MANDO=[["Oya !","En chasse ! On y va !"],["Ner vod","Mon frère, mon camarade"],["Vod'e","Les frères, les camarades"],["K'oyacyi !","Reste en vie ! (salut, à la tienne)"],["Udesii","Du calme, doucement"],["Aliit","Le clan, la famille"],["Beskar","Le fer mandalorien"],["Kandosii !","Bien joué ! Classe !"],["Ori'vod","Grand frère"],["Mhi solus tome","Nous sommes un, ensemble"]];
+const RESOL=["Porter l'armure","Parler la langue","Défendre les siens","Élever ses enfants comme Mandaloriens","Servir le clan","Répondre à l'appel du Mand'alor"];
+const BBSPEC=[["traq","Traqueur","Pistage, commandement sur le terrain, instinct de chasseur","<circle cx='11' cy='11' r='7'/><path d='m20 20-4-4M11 7v8M7 11h8'/>"],
+ ["demo","Démolition","Force brute, armes lourdes et explosifs","<circle cx='11' cy='14' r='7'/><path d='M15 9l3-3M18 3v3h3'/>"],
+ ["tech","Technicien","Piratage, analyse tactique, drones","<rect x='4' y='4' width='16' height='16' rx='2'/><path d='M9 9h6v6H9zM9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3'/>"],
+ ["snip","Tireur d'élite","Précision à très longue distance","<circle cx='12' cy='12' r='9'/><path d='M12 3v5M12 16v5M3 12h5M16 12h5'/><circle cx='12' cy='12' r='1.5'/>"],
+ ["cyber","Cyber-ARC","Interface machine, infiltration des systèmes","<path d='M12 3a6 6 0 0 0-6 6v3l-2 4h16l-2-4V9a6 6 0 0 0-6-6z'/><path d='M9 20a3 3 0 0 0 6 0'/>"]];
+const BBGEN={o:["Récupérer un holocron volé","Exfiltrer un informateur","Saboter une usine de droïdes","Escorter un convoi de la République","Neutraliser une batterie anti-aérienne","Retrouver une escouade disparue","Voler des plans séparatistes"],
+ l:["sur Kamino","dans les marais de Felucia","sur une lune glacée","dans les bas-fonds de Coruscant","sur une station orbitale abandonnée","dans le désert de Géonosis","à bord d'un croiseur ennemi"],
+ c:["sans renfort","avec un seul chargeur chacun","avant le lever du soleil","en silence radio total","avec un droïde qui n'en fait qu'à sa tête","sous une tempête ionique","sans se faire repérer"]};
+const pick=a=>a[Math.random()*a.length|0];
+function vig(s,k,dec){k=(k||"").normalize("NFD").replace(/[^A-Za-z]/g,"").toUpperCase();if(!k)return s;let j=0;
+ return[...s].map(ch=>{const b=ch.normalize("NFD")[0];const up=b>="A"&&b<="Z",lo=b>="a"&&b<="z";if(!up&&!lo)return ch;
+  const base=up?65:97,sh=k.charCodeAt(j++%k.length)-65;return String.fromCharCode((b.charCodeAt(0)-base+(dec?26-sh:sh))%26+base)}).join("")}
+function unitSpace(){if(!SESSION)return"";const k=SESSION.unit||"bos";if(k==="bos")return"";const u=UNITS[k];
+ const head=(kick,title,sub,badge)=>`<div class="usp-h"><img src="${IMG[u.logo]}" alt=""><div><div class="usp-k">${kick}</div><h2>${title}</h2><p>${sub}</p></div>${badge?`<span class="usp-b">${badge}</span>`:""}</div>`;
+ const regOf=uk=>Object.keys(store).find(p=>p.startsWith("Règlements internes/")&&HK(p)===UNITS[uk].k);
+ let body="";
+ if(k==="arc"){const key="bos-arc-"+SESSION.id+"-"+weekNo(),done=LS.get(key,[]);const pct=Math.round(done.length/DRILLS.length*100);
+  body=head("Ton espace · ARC Alpha","Centre d'entraînement","Programme de la semaine "+weekNo()+". Clique sur un exercice quand il est validé.","Rang : "+ARCRANK(pct))+
+  `<div class="arc-g"><div class="arc-ring" style="--p:${pct}"><b>${pct}%</b><small>${done.length}/${DRILLS.length} validés</small></div>
+   <div class="arc-l">${DRILLS.map((d,i)=>`<button type="button" class="arc-d${done.includes(i)?" ok":""}" data-arc="${i}">${svg(d[2])}<span><b>${d[0]}</b><small>${d[1]}</small></span><i>${done.includes(i)?"VALIDÉ":"À FAIRE"}</i></button>`).join("")}</div></div>
+   <div class="usp-f"><span>Progression enregistrée sur cet appareil, remise à zéro chaque semaine.</span><button type="button" class="b" data-arcreset>Recommencer la semaine</button></div>`}
+ else if(k==="omega"){const day=Math.floor(Date.now()/864e5),w=MANDO[day%MANDO.length];
+  body=head("Ton espace · escouade Omega","Héritage mandalorien","Entraînés par des instructeurs mandaloriens, les commandos Omega en gardent la langue et le code.","Ner vod")+
+  `<div class="om-g"><div class="om-day"><div class="om-visor" aria-hidden="true"></div><small>Mot du jour en Mando'a</small><b>${w[0]}</b><span>${w[1]}</span></div>
+   <div class="om-res"><h3>Resol'nare · les six actions</h3><ol>${RESOL.map(r=>`<li>${r}</li>`).join("")}</ol></div></div>
+   <div class="om-lex">${MANDO.map(m=>`<div><b>${m[0]}</b><span>${m[1]}</span></div>`).join("")}</div>`}
+ else if(k==="brs"){const nR=DATA.filter(d=>d.restricted).length;
+  body=head("Ton espace · B.R.S","Terminal d'espionnage","Accès en lecture à toutes les archives, données restreintes comprises. Aucune modification possible.","Lecture intégrale")+
+  `<div class="brs-g"><div class="brs-c"><h3>Chiffreur de messages</h3><label class="fld">Message<textarea id="cmsg" rows="3" spellcheck="false" placeholder="Rendez-vous au hangar 4 à 22h"></textarea></label>
+    <label class="fld">Clé secrète<input id="ckey" placeholder="Ex. SENAT" autocomplete="off"></label>
+    <div class="brs-a"><button type="button" class="b p" data-ciph="enc">Chiffrer</button><button type="button" class="b" data-ciph="dec">Déchiffrer</button><button type="button" class="b" data-ciph="copy">Copier</button></div>
+    <pre id="cout" class="brs-o">&gt; en attente…</pre><small>Chiffrement de Vigenère : seuls ceux qui ont la clé peuvent relire le message.</small></div>
+   <div class="brs-r"><div class="brs-stamp">CLASSIFIÉ</div><h3>Consignes de l'agent</h3><ul><li>Ne jamais révéler sa couverture.</li><li>Recouper chaque information avec deux sources.</li><li>Transmettre les rapports chiffrés à la Direction.</li><li>Détruire ses notes après lecture.</li></ul>
+    <a class="brs-l" href="#/~donnees"><b>${nR}</b><span>dossier${nR>1?"s":""} restreint${nR>1?"s":""} accessible${nR>1?"s":""}<br>dans Données BOS</span>${svg('<path d="M5 12h14M13 6l6 6-6 6"/>')}</a></div></div>`}
+ else if(k==="bb"){const mine=LS.get("bos-bb-"+SESSION.id,"");
+  body=head("Ton espace · Clone Force 99","Escouade défectueuse","Chacun sa spécialité, chacun son style. Choisis la tienne et tire ton prochain ordre de mission.","Chacun pour soi")+
+  `<div class="bb-s">${BBSPEC.map(s=>`<button type="button" class="bb-c${mine===s[0]?" on":""}" data-bbspec="${s[0]}">${svg(s[3])}<b>${s[1]}</b><small>${s[2]}</small><i>${mine===s[0]?"Ta spécialité":"Choisir"}</i></button>`).join("")}</div>
+   <div class="bb-m"><div><small>Ordre de mission</small><p id="bbout">Appuie sur le bouton pour recevoir ta mission.</p></div><button type="button" class="b p" data-bbgen>Tirer une mission</button></div>`}
+ else if(k==="amiraute"){const nR=DATA.filter(d=>d.restricted).length;
+  body=head("Ton espace · Amirauté","Pont de commandement","Vue d'ensemble de toutes les unités. Accès en lecture à tout le site, sans modification possible.","Lecture intégrale")+
+  `<div class="am-st"><div><b>${Object.keys(store).length}</b>pages</div><div><b>${DATA.length}</b>données</div><div><b>${nR}</b>restreintes</div><div><b>${FILES.length}</b>fichiers</div></div>
+   <div class="am-u">${["bos","brs","arc","omega","bb"].map(x=>{const v=UNITS[x],p=regOf(x);return`<a style="${uvars(v)}" href="${p?href(p):"#/"}"><img src="${IMG[v.logo]}" alt=""><b>${v.n}</b><small>${esc(v.full)}</small><span>Règlement ${svg('<path d="M5 12h14M13 6l6 6-6 6"/>')}</span></a>`}).join("")}</div>`}
+ return`<section class="usp usp-${k} fade" style="${uvars(u)}">${body}</section>`}
+$("view").addEventListener("click",async e=>{const t=e.target;if(cur!==HOME||!SESSION)return;
+ const a=t.closest("[data-arc]");if(a){const key="bos-arc-"+SESSION.id+"-"+weekNo();let d=LS.get(key,[]);const i=+a.dataset.arc;d=d.includes(i)?d.filter(x=>x!==i):d.concat(i);LS.set(key,d);
+  const el=document.querySelector(".usp");if(el){const tmp=document.createElement("div");tmp.innerHTML=unitSpace();el.replaceWith(tmp.firstElementChild)}if(d.length===DRILLS.length&&!d.__)toast("Programme terminé : rang Élite ARC !",3000);return}
+ if(t.closest("[data-arcreset]")){LS.set("bos-arc-"+SESSION.id+"-"+weekNo(),[]);const el=document.querySelector(".usp");if(el){const tmp=document.createElement("div");tmp.innerHTML=unitSpace();el.replaceWith(tmp.firstElementChild)}return}
+ const s=t.closest("[data-bbspec]");if(s){LS.set("bos-bb-"+SESSION.id,s.dataset.bbspec);document.querySelectorAll(".bb-c").forEach(c=>{const on=c===s;c.classList.toggle("on",on);c.querySelector("i").textContent=on?"Ta spécialité":"Choisir"});return}
+ if(t.closest("[data-bbgen]")){const o=$("bbout");if(!o)return;const txt=pick(BBGEN.o)+" "+pick(BBGEN.l)+", "+pick(BBGEN.c)+".";o.textContent="";o.classList.add("typing");
+  for(let i=0;i<=txt.length;i++){o.textContent=txt.slice(0,i);await sleep(14)}o.classList.remove("typing");return}
+ const c=t.closest("[data-ciph]");if(c){const out=$("cout");if(!out)return;
+  if(c.dataset.ciph==="copy"){try{await navigator.clipboard.writeText(out.dataset.v||"");toast("Copié")}catch(er){toast("Copie impossible")}return}
+  const key=$("ckey").value,msg=$("cmsg").value;if(!key.trim()){out.textContent="> il faut une clé secrète";return}if(!msg.trim()){out.textContent="> écris un message";return}
+  const r=vig(msg,key,c.dataset.ciph==="dec");out.dataset.v=r;out.textContent="> "+r}});
+
 /* ---------- Données BOS (terminal) ---------- */
 let SECTIONS=[],DATA=[],PEND=[];const UNLOCKED=new Set();let DEDIT=null;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -1082,14 +1282,14 @@ function termLines(body){return(body||"").split("\n").map(l=>{const t=l.replace(
   if(m&&!/^https?$/i.test(m[1]))return`<div class="tl"><span class="k scr">${esc(m[1])} :</span><code class="scr">${esc(m[2])}</code><button class="tcp" type="button" data-copy="${esc(m[2])}">Copier</button></div>`;
   return`<div class="tl"><span class="scr">${esc(t)}</span></div>`}).join("")}
 function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a,b)=>b.date-a.date);
- const locked=d.restricted&&!(IS_ADMIN&&UNLOCKED.has(d.id));
+ const locked=d.restricted&&!(SEEALL()&&UNLOCKED.has(d.id));
  const st=locked?'<span class="tst red">VERROUILLÉ</span>':d.restricted?'<span class="tst amber">DÉCHIFFRÉ</span>':'<span class="tst green">ACCÈS ACCORDÉ</span>';
  const ic=p=>svg(p);
- const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${IS_ADMIN&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}<button type="button" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}</button><button type="button" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></div>`:"";
+ const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}<button type="button" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}</button><button type="button" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></div>`:"";
  const meta=`${d.created_by?esc(d.created_by)+" · ":""}${fdate(Date.parse(d.created_at)||Date.now())}`;
  let body;
  if(locked){let rain="";for(let i=0;i<70;i++)rain+=rhex(48)+" ";
-  body=`<div class="lrain" aria-hidden="true">${rain}</div><div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES RESTREINTES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Chiffrement B.O.S · niveau Direction</small><button class="ldec${IS_ADMIN?" adm":""}" type="button" data-dec="${esc(d.id)}">${IS_ADMIN?"Déchiffrer":"Tenter l'accès"}</button></div>`}
+  body=`<div class="lrain" aria-hidden="true">${rain}</div><div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES RESTREINTES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Chiffrement B.O.S · niveau Direction</small><button class="ldec${SEEALL()?" adm":""}" type="button" data-dec="${esc(d.id)}">${SEEALL()?"Déchiffrer":"Tenter l'accès"}</button></div>`}
  else body=`<h3 class="tok${d.restricted?" dec":""}">${d.restricted?"DONNÉES DÉCHIFFRÉES":"ACCÈS ACCORDÉ"}</h3><div class="ttl scr">${esc(d.title)}</div>${termLines(d.body)}${files.length?`<div class="tcaps">${fileBlock(files,false)}</div>`:""}`;
  return`<article class="term${locked?" lk":""}" data-did="${esc(d.id)}" style="--u:#2bff88">
   <div class="tbar"><b>TERMINAL</b><span class="tsec">#${esc(secName(d.section_id))}</span>${st}${act}</div>
@@ -1116,7 +1316,7 @@ function scramble(root){const els=[...root.querySelectorAll(".scr")];const CH="!
 const HACKING=new Set();
 async function hackSeq(card,d){if(HACKING.has(d.id))return;HACKING.add(d.id);
  const tb=card.querySelector(".tbody"),btn=card.querySelector("[data-dec]");if(btn)btn.disabled=true;
- const adm=IS_ADMIN;const box=document.createElement("div");box.className="hack"+(adm?" ok":"");tb.appendChild(box);
+ const adm=SEEALL();const box=document.createElement("div");box.className="hack"+(adm?" ok":"");tb.appendChild(box);
  const line=async(t,c,ms)=>{const p=document.createElement("p");if(c)p.className=c;box.appendChild(p);for(let i=0;i<=t.length;i+=2){p.textContent="> "+t.slice(0,i);await sleep(ms||9)}p.textContent="> "+t;while(box.children.length>9)box.firstChild.remove()};
  const bar=async(to,speed)=>{let b=box.querySelector(".hbar i");if(!b){const w=document.createElement("div");w.className="hbar";w.innerHTML="<i></i>";box.appendChild(w);b=w.firstChild}
   const lab=document.createElement("p");box.appendChild(lab);let v=parseFloat(b.style.width)||0;
@@ -1181,7 +1381,7 @@ const MANAGER=()=>IS_ADMIN&&!PREVIEW;
 function applyMode(){const r=SESSION&&SESSION.role;IS_ADMIN=lvl(r)>=2;OWNER=r==="owner";CAN=IS_ADMIN&&!PREVIEW;document.body.classList.toggle("ro",!CAN);document.body.classList.toggle("isadm",IS_ADMIN);document.body.classList.toggle("locked",!SESSION);
  const b=$("adm");b.hidden=!IS_ADMIN;b.textContent=PREVIEW?"Mode visiteur":"Mode admin";b.classList.toggle("pv",PREVIEW);b.title=PREVIEW?"Clique pour revenir en mode admin":"Clique pour voir le site comme un visiteur";
  document.querySelector(".tm").hidden=CAN;const w=$("who");w.hidden=!ONLINE;$("wt").textContent=SESSION?SESSION.display:"Connexion";$("signup").hidden=true;
- $("wa").textContent=SESSION?ini(SESSION.display):"";$("wa").hidden=!SESSION;w.classList.toggle("on",!!SESSION);
+ $("wa").textContent=SESSION?ini(SESSION.display):"";$("wa").hidden=!SESSION;w.classList.toggle("on",!!SESSION);w.style.setProperty("--uc",unitOf(SESSION).c);
  w.title=SESSION?"Connecté : "+SESSION.display+" ("+ROLES[SESSION.role]+")":"Se connecter avec ton compte";
  if(!edit){nav();view()}}
 $("adm").onclick=()=>{PREVIEW=!PREVIEW;try{sessionStorage.setItem("bos-preview",PREVIEW?"1":"0")}catch(e){}edit=false;applyMode();toast(PREVIEW?"Tu vois le site comme un visiteur":"Mode admin activé")};
@@ -1189,12 +1389,12 @@ const ini=n=>(n||"?").trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpp
 function openModal(html){$("lgbox").classList.remove("wide");$("lgbox").innerHTML=html;$("lgm").classList.add("on");const f=$("lgbox").querySelector("input");if(f)setTimeout(()=>f.focus(),30)}
 function closeModal(){if($("lgm").dataset.lock)return;$("lgm").classList.remove("on")}
 $("lgm").addEventListener("mousedown",e=>{if(e.target.id==="lgm")closeModal()});
-function showAccount(){openModal(`<div class="sk">Connecté</div><h2 id="lgt">${esc(SESSION.display)}</h2><p class="mtxt">Identifiant : <b>${esc(SESSION.username)}</b><br>Rôle : <b>${ROLES[SESSION.role]}</b></p><div class="mact"><button class="b" id="lgx" type="button">Fermer</button><button class="b p" id="lgout" type="button">Se déconnecter</button></div>`)}
+function showAccount(){openModal(`<div class="sk">Connecté</div><h2 id="lgt">${esc(SESSION.display)}</h2><p class="mtxt">Identifiant : <b>${esc(SESSION.username)}</b><br>Rôle : <b>${roleLabel(SESSION)}</b><br>Unité : <span class="uline" style="${uvars(unitOf(SESSION))}"><img src="${IMG[unitOf(SESSION).logo]}" alt=""><b>${unitOf(SESSION).n}</b></span></p><div class="mact"><button class="b" id="lgx" type="button">Fermer</button><button class="b p" id="lgout" type="button">Se déconnecter</button></div>`)}
 function openLogin(){if(!ONLINE){toast("Site pas encore relié à sa base de données");return}
  openModal(`<form id="lgf" autocomplete="on"><div class="sk">Accès B.O.S</div><h2 id="lgt">Connexion</h2><label class="fld">Nom d'utilisateur<input id="lgu" name="username" autocomplete="username" required></label><label class="fld">Mot de passe<input id="lgp" name="password" type="password" autocomplete="current-password" required></label><p class="merr" id="lgerr" aria-live="polite"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Se connecter</button></div><p class="mfoot">Pas encore de compte ? Demande-le à un admin de la B.O.S : il te donnera ton nom d'utilisateur et ton mot de passe.</p></form>`)}
 function roleSelect(id,cur){return OWNER?`<label class="fld">Rôle<select ${id?`id="${id}"`:'name="r"'}><option value="membre"${cur!=="admin"?" selected":""}>Membre (lecture)</option><option value="admin"${cur==="admin"?" selected":""}>Admin (peut modifier)</option></select></label>`:""}
 function openSignup(){if(!MANAGER())return;
- openModal(`<form id="suf"><div class="sk">Nouveau membre</div><h2 id="lgt">Créer un compte</h2><label class="fld">Nom affiché<input id="sun" placeholder="Ex. Troxi" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="suu" placeholder="Ex. troxi" required maxlength="30" autocomplete="off"></label><label class="fld">Mot de passe<input id="sup" type="text" placeholder="6 caractères minimum" required minlength="6" autocomplete="new-password"></label>${roleSelect("sur","membre")}<p class="merr" id="suerr" aria-live="polite"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Créer le compte</button></div><p class="mfoot">Envoie ensuite le nom d'utilisateur et le mot de passe à la personne, en message privé.</p></form>`)}
+ openModal(`<form id="suf"><div class="sk">Nouveau membre</div><h2 id="lgt">Créer un compte</h2><label class="fld">Nom affiché<input id="sun" placeholder="Ex. Troxi" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="suu" placeholder="Ex. troxi" required maxlength="30" autocomplete="off"></label><label class="fld">Mot de passe<input id="sup" type="text" placeholder="6 caractères minimum" required minlength="6" autocomplete="new-password"></label><div class="fld">Unité${unitPicker("suunit","bos")}</div>${OBSNOTE}${roleSelect("sur","membre")}<p class="merr" id="suerr" aria-live="polite"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Créer le compte</button></div><p class="mfoot">Envoie ensuite le nom d'utilisateur et le mot de passe à la personne, en message privé.</p></form>`);$("lgbox").classList.add("wide")}
 function openSetup(){$("lgm").dataset.lock="1";
  openModal(`<form id="owf"><div class="sk">Première mise en route</div><h2 id="lgt">Compte propriétaire</h2><p class="mtxt">Aucun compte n'existe encore. Crée le tien : ce sera le compte <b>propriétaire</b>, le seul qui peut nommer des admins.</p><label class="fld">Nom affiché<input id="own" placeholder="Ex. Sacha" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="owu" placeholder="Ex. sacha" required maxlength="30" autocomplete="username"></label><label class="fld">Mot de passe<input id="owp" type="password" required minlength="6" autocomplete="new-password"></label><p class="merr" id="owerr" aria-live="polite"></p><div class="mact"><button class="b p" type="submit">Créer mon compte</button></div></form>`)}
 $("who").onclick=()=>SESSION?showAccount():openLogin();
@@ -1213,7 +1413,7 @@ $("lgbox").addEventListener("submit",async e=>{const f=e.target;e.preventDefault
   SESSION=r;saveSess();delete $("lgm").dataset.lock;closeModal();await loadData();applyMode();toast("Compte propriétaire créé, bienvenue "+r.display,4000)}
  else if(f.id==="suf"){if(!MANAGER())return;const u=$("suu").value.trim().toLowerCase();
   if(!validU(u)){$("suerr").textContent="Nom d'utilisateur : lettres minuscules, chiffres, point ou tiret (2 à 30 caractères).";return}
-  const ok=await call("bos_create_account",{p_username:u,p_display:$("sun").value,p_password:$("sup").value,p_role:$("sur")?$("sur").value:"membre"},"Compte « "+u+" » créé");
+  const ok=await call("bos_create_account",{p_username:u,p_display:$("sun").value,p_password:$("sup").value,p_role:$("sur")?$("sur").value:"membre",p_unit:pickedUnit(f,"suunit")},"Compte « "+u+" » créé");
   if(ok){closeModal();if(cur==="~equipe")loadTeam()}}
  else if(f.id==="npf"){const fo=$("npd").value,n=$("npn").value.trim().replace(/\//g,"-");if(!n)return;closeModal();await createPage((fo?fo+"/":"")+n)}
  }finally{busy=false}});
@@ -1225,27 +1425,26 @@ function renderTeam(){const el=$("team");if(!el)return;
  const how=`<div class="how"><div><em>1</em><p><b>Créer le compte</b>Un admin crée un nom d'utilisateur et un mot de passe pour la personne, ici ou avec le bouton <b>Créer un compte</b>. Seul le propriétaire choisit qui est <b>Admin</b>.</p></div><div><em>2</em><p><b>Envoyer les identifiants</b>Envoie-les-lui en message privé, sur Discord par exemple. Ne les poste jamais dans un salon public.</p></div><div><em>3</em><p><b>Se connecter</b>La personne clique sur <b>Connexion</b> en haut à gauche. Si elle perd ses accès, un admin change son identifiant ou son mot de passe ici.</p></div></div>`;
  if(!ONLINE){el.innerHTML=`<p class="tnote" style="margin:0 0 14px">Le site n'est pas encore relié à sa base de données.</p>${how}`;return}
  if(!MANAGER()){el.innerHTML=`<div class="fh"><div><div class="sk">Accès</div><h2>Réservé aux admins</h2></div></div><p class="tnote" style="margin:0 0 14px">Connecte-toi avec un compte admin pour gérer les utilisateurs.</p>${how}`;return}
- const editForm=a=>`<form class="newacc edacc" data-edit="${esc(a.id)}"><label class="fld">Nom affiché<input name="n" value="${esc(a.display)}" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input name="u" value="${esc(a.username)}" required maxlength="30" autocomplete="off"></label><label class="fld">Nouveau mot de passe<input name="p" type="text" placeholder="Laisser vide pour ne pas changer" autocomplete="new-password"></label>${a.role!=="owner"&&OWNER?roleSelect("",a.role):`<label class="fld">Rôle<input value="${ROLES[a.role]}" disabled></label>`}<div class="eact"><button class="b" type="button" data-cancel>Annuler</button><button class="b p" type="submit">Enregistrer</button></div></form>`;
- const row=a=>EDITING===a.id?`<div class="frow editing">${editForm(a)}</div>`:`<div class="frow">${a.role==="owner"?'<span class="av own">★</span>':`<span class="av${a.role==="admin"?" adm-av":""}">${esc(ini(a.display))}</span>`}<div class="fn"><b>${esc(a.display)}${SESSION&&SESSION.id===a.id?" (toi)":""}</b><small>Identifiant : ${esc(a.username)}</small></div><span class="role r-${a.role==="membre"?"membre":"admin"}">${ROLES[a.role]}</span>${canTouch(a)?`<div class="fa"><button class="b" data-editacc="${esc(a.id)}">Modifier</button>${a.role!=="owner"&&(OWNER||a.role==="membre")?`<button class="b d" data-del="${esc(a.id)}">Supprimer</button>`:""}</div>`:""}</div>`;
- const ad=ACCOUNTS.filter(a=>lvl(a.role)>=2),mb=ACCOUNTS.filter(a=>a.role==="membre");
- el.innerHTML=`${TEAM_ERR?`<p class="merr">${esc(TEAM_ERR)}</p>`:""}<div class="fh"><div><div class="sk">Accès</div><h2>Admins <em>${ad.length}</em></h2></div></div><div class="flist">${ad.map(row).join("")}</div>
-  <div class="fh" style="margin-top:22px"><div><div class="sk">Accès</div><h2>Membres <em>${mb.length}</em></h2></div></div>
-  ${mb.length?`<div class="flist">${mb.map(row).join("")}</div>`:`<p class="tnote" style="margin:0">Aucun compte membre pour l'instant.</p>`}
+ const editForm=a=>`<form class="newacc edacc" data-edit="${esc(a.id)}"><div class="fld nunit">Unité${unitPicker("edunit"+a.id.slice(0,8),a.unit||"bos")}</div>${OBSNOTE}<label class="fld">Nom affiché<input name="n" value="${esc(a.display)}" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input name="u" value="${esc(a.username)}" required maxlength="30" autocomplete="off"></label><label class="fld">Nouveau mot de passe<input name="p" type="text" placeholder="Laisser vide pour ne pas changer" autocomplete="new-password"></label>${a.role!=="owner"&&OWNER?roleSelect("",a.role):`<label class="fld">Rôle<input value="${ROLES[a.role]}" disabled></label>`}<div class="eact"><button class="b" type="button" data-cancel>Annuler</button><button class="b p" type="submit">Enregistrer</button></div></form>`;
+ const row=a=>EDITING===a.id?`<div class="frow editing">${editForm(a)}</div>`:`<div class="frow">${a.role==="owner"?'<span class="av own">★</span>':`<span class="av${a.role==="admin"?" adm-av":""}">${esc(ini(a.display))}</span>`}<div class="fn"><b>${esc(a.display)}${SESSION&&SESSION.id===a.id?" (toi)":""}</b><small>Identifiant : ${esc(a.username)}</small></div><span class="role r-${a.role==="membre"?(OBS(a.unit)?"obs":"membre"):"admin"}">${roleLabel(a)}</span>${canTouch(a)?`<div class="fa"><button class="b" data-editacc="${esc(a.id)}">Modifier</button>${a.role!=="owner"&&(OWNER||a.role==="membre")?`<button class="b d" data-del="${esc(a.id)}">Supprimer</button>`:""}</div>`:""}</div>`;
+ const secs=UORDER.map(k=>{const u=UNITS[k],l=ACCOUNTS.filter(a=>(a.unit||"bos")===k);
+  return`<section class="usec" style="${uvars(u)}"><div class="ush"><img src="${IMG[u.logo]}" alt=""><div><b>${u.n}</b><small>${esc(u.full)}${OBS(k)?" · voit tout, ne modifie rien":""}</small></div><em>${l.length}</em></div>${l.length?`<div class="flist">${l.map(row).join("")}</div>`:`<p class="tnote">Aucun compte dans cette unité.</p>`}</section>`}).join("");
+ el.innerHTML=`${TEAM_ERR?`<p class="merr">${esc(TEAM_ERR)}</p>`:""}<div class="fh"><div><div class="sk">Accès</div><h2>Comptes par unité <em>${ACCOUNTS.length}</em></h2></div></div>${secs}
   <div class="fh" style="margin-top:22px"><div><div class="sk">Nouveau</div><h2>Créer un utilisateur</h2></div></div>
-  <form class="newacc" id="naf"><label class="fld">Nom affiché<input id="nan" placeholder="Ex. Troxi" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="nau" placeholder="Ex. troxi" required maxlength="30" autocomplete="off"></label><label class="fld">Mot de passe<input id="nap" type="text" placeholder="6 caractères minimum" required minlength="6" autocomplete="new-password"></label>${OWNER?roleSelect("nar","membre"):`<label class="fld">Rôle<input value="Membre" disabled></label>`}<button class="b p" type="submit">Créer</button></form>
+  <form class="newacc" id="naf"><div class="fld nunit">Unité${unitPicker("naunit","bos")}</div>${OBSNOTE}<label class="fld">Nom affiché<input id="nan" placeholder="Ex. Troxi" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="nau" placeholder="Ex. troxi" required maxlength="30" autocomplete="off"></label><label class="fld">Mot de passe<input id="nap" type="text" placeholder="6 caractères minimum" required minlength="6" autocomplete="new-password"></label>${OWNER?roleSelect("nar","membre"):`<label class="fld">Rôle<input value="Membre" disabled></label>`}<button class="b p" type="submit">Créer</button></form>
   <p class="tnote">${OWNER?"Tu es le seul à pouvoir nommer ou retirer un admin.":"Seul le propriétaire du site peut nommer un admin. Tu peux créer des membres, et modifier les membres et ton propre compte."} Les mots de passe sont chiffrés sur le serveur : personne ne peut les lire, même pas les admins.</p>
   <div class="fh" style="margin-top:26px"><div><div class="sk">Mode d'emploi</div><h2>Comment ça marche</h2></div></div>${how}`;
  const f=el.querySelector(".edacc input");if(f)f.focus()}
 $("view").addEventListener("submit",async e=>{const f=e.target;
  if(f.id==="naf"){e.preventDefault();if(!MANAGER())return;const u=$("nau").value.trim().toLowerCase();
   if(!validU(u)){toast("Nom d'utilisateur : lettres minuscules, chiffres, point ou tiret (2 à 30 caractères)",4000);return}
-  if(await call("bos_create_account",{p_username:u,p_display:$("nan").value,p_password:$("nap").value,p_role:$("nar")?$("nar").value:"membre"},"Compte « "+u+" » créé"))loadTeam();return}
+  if(await call("bos_create_account",{p_username:u,p_display:$("nan").value,p_password:$("nap").value,p_role:$("nar")?$("nar").value:"membre",p_unit:pickedUnit(f,"naunit")},"Compte « "+u+" » créé"))loadTeam();return}
  if(f.dataset.edit){e.preventDefault();const a=ACCOUNTS.find(x=>x.id===f.dataset.edit);if(!a||!canTouch(a))return;
   const u=f.elements.u.value.trim().toLowerCase(),p=f.elements.p.value;
   if(!validU(u)){toast("Nom d'utilisateur : lettres minuscules, chiffres, point ou tiret (2 à 30 caractères)",4000);return}
   if(p&&p.length<6){toast("Mot de passe trop court (6 caractères minimum)",3000);return}
-  const ok=await call("bos_update_account",{p_id:a.id,p_username:u,p_display:f.elements.n.value,p_password:p,p_role:f.elements.r?f.elements.r.value:a.role},"Compte mis à jour"+(p?" (nouveau mot de passe)":""));
-  if(ok){if(SESSION.id===a.id){SESSION.username=u;SESSION.display=f.elements.n.value.trim()||u;saveSess();applyMode()}EDITING=null;loadTeam()}}});
+  const ok=await call("bos_update_account",{p_id:a.id,p_username:u,p_display:f.elements.n.value,p_password:p,p_role:f.elements.r&&!f.elements.r.disabled?f.elements.r.value:(OBS(pickedUnit(f,"edunit"+a.id.slice(0,8)))?"membre":a.role),p_unit:pickedUnit(f,"edunit"+a.id.slice(0,8))},"Compte mis à jour"+(p?" (nouveau mot de passe)":""));
+  if(ok){if(SESSION.id===a.id){SESSION.unit=pickedUnit(f,"edunit"+a.id.slice(0,8));SESSION.username=u;SESSION.display=f.elements.n.value.trim()||u;saveSess();applyMode()}EDITING=null;loadTeam()}}});
 $("view").addEventListener("click",async e=>{const ed=e.target.closest("[data-editacc]"),cc=e.target.closest("[data-cancel]"),d=e.target.closest("[data-del]");
  if(cc){EDITING=null;renderTeam();return}
  if(ed){if(!MANAGER())return;EDITING=ed.dataset.editacc;renderTeam();return}
