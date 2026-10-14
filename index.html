@@ -954,6 +954,13 @@ a.dl-i:hover b{color:var(--ut)}
 .mbox .mact{position:sticky;bottom:-28px;z-index:3;margin:0 -28px -28px;padding:12px 28px 16px;background:linear-gradient(180deg,rgba(7,7,8,.85),#070708 40%);border-top:1px solid #1f1f25}
 .mbox.wide .mact{bottom:-22px;margin:0 -24px -22px;padding:12px 24px 14px}
 #dtf .mact,#suf .mact{order:99}
+/* Verrouillage temporisé */
+.lkd{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.lkd label{position:relative;cursor:pointer}.lkd input{position:absolute;opacity:0}
+.lkd span{display:block;padding:9px 6px;border:1px solid #2a2a31;border-radius:4px;background:#0b0b0d;text-align:center;font:700 13px Rajdhani,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.lkd input:checked+span{border-color:#ff3b45;color:#fff;background:rgba(255,59,69,.14);box-shadow:0 0 14px rgba(255,59,69,.3)}
+.lkd input:focus-visible+span{outline:2px solid #ff8a90}
+.lmid .lleft{font-style:normal;color:#ff8a90;font-size:12px;letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -1370,6 +1377,20 @@ function dirData(){const l=DATA.slice(0,6);if(!l.length)return'<p class="tnote">
 async function fillDir(){const el=$("dirfeed");if(!el||!MANAGER())return;try{const r=await API.rpc("bos_list_logs",{p_token:tok()});const box=$("dirfeed");if(!box)return;
  const l=(r||[]).slice(0,6);box.innerHTML=l.length?l.map(x=>`<div class="dl-i"><b>${esc(x.a||"")}</b><span>${esc(x.d||"")}</span><small>${esc(x.w||"")} · ${x.t?new Date(x.t).toLocaleString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}):""}</small></div>`).join(""):'<p class="tnote">Aucune activité.</p>'}catch(e){el.innerHTML='<p class="tnote">Journal indisponible.</p>'}}
 $("view").addEventListener("change",async e=>{const i=e.target.closest("[data-unitup]");if(!i)return;const fs=[...i.files].filter(f=>/^image\//.test(f.type));i.value="";if(fs.length){await addFiles(fs.slice(0,1),"~unit/"+i.dataset.unitup);view()}});
+function lockLeft(d){if(!d||!d.locked_until)return"";const ms=Date.parse(d.locked_until)-Date.now();if(ms<=0)return"expiré";const m=Math.ceil(ms/6e4);
+ if(m<60)return m+" min";const h=Math.floor(m/60);if(h<48)return h+" h "+String(m%60).padStart(2,"0");return Math.floor(h/24)+" j "+(h%24)+" h"}
+const LOCKDUR=[[1,"1 heure"],[6,"6 heures"],[24,"24 heures"],[72,"3 jours"],[168,"7 jours"],[0,"Sans limite"]];
+function openLockForm(d){openModal(`<form id="lkf" data-id="${esc(d.id)}"><div class="sk">Verrouillage</div><h2 id="lgt">Verrouiller la donnée</h2><p class="mtxt" style="margin:0 0 12px">« ${esc(d.title||"")} » sera floutée pour tout le monde, sauf la Direction, l'Amirauté, la B.R.S et les admins. Le verrou reste actif même si on se déconnecte ou qu'on change de compte.</p>
+ <div class="lkd">${LOCKDUR.map(([h,l],i)=>`<label><input type="radio" name="lkh" value="${h}"${i===2?" checked":""}><span>${l}</span></label>`).join("")}</div>
+ <p class="mfoot" style="margin:8px 0;padding:0;border:0">Avec une durée, la donnée se déverrouille toute seule à la fin. « Sans limite » : elle reste verrouillée jusqu'à ce que quelqu'un clique sur Déverrouiller.</p>
+ <div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Verrouiller</button></div></form>`)}
+async function doLock(d,to,hours){const card=document.querySelector(`.term[data-did="${d.id}"]`);
+ if(await call("bos_data_lock",{p_id:d.id,p_locked:to,p_hours:hours})){if(card){const s=document.createElement("div");s.className="stamp "+(to?"r":"g");s.textContent=to?"VERROUILLÉ":"DÉVERROUILLÉ";card.appendChild(s);card.classList.add(to?"deny":"grant")}
+  if(to)UNLOCKED.delete(d.id);await sleep(900);await refreshData();toast(to?(hours?"Verrouillée pour "+LOCKDUR.find(x=>x[0]===hours)[1]:"Verrouillée sans limite"):"Données déverrouillées",3000)}}
+$("lgbox").addEventListener("submit",async e=>{const f=e.target;if(f.id!=="lkf")return;e.preventDefault();e.stopImmediatePropagation();const d=dataOf(f.dataset.id);if(!d)return;
+ const h=+((f.querySelector("input[name=lkh]:checked")||{}).value||0);closeModal();await doLock(d,true,h)},true);
+let LKEXP=0;setInterval(()=>{let exp=false;document.querySelectorAll("[data-until]").forEach(el=>{const d=dataOf(el.dataset.until);const l=lockLeft(d);if(l==="expiré")exp=true;else el.textContent=l})
+ ;if(exp&&cur.startsWith("~donnees")&&Date.now()-LKEXP>20000){LKEXP=Date.now();refreshData()}},30000);
 const PADSVG='<svg viewBox="0 0 64 76" fill="none" stroke="currentColor" stroke-width="4"><path class="sh" d="M18 34V22a14 14 0 0 1 28 0v12"/><rect x="8" y="34" width="48" height="38" rx="4" fill="rgba(0,0,0,.6)"/><circle cx="32" cy="50" r="5" fill="currentColor"/><path d="M32 55v8"/></svg>';
 function termLines(body){return(body||"").split("\n").map(l=>{const t=l.replace(/\s+$/,"");if(!t.trim())return'<div class="tl">&nbsp;</div>';
   const m=/^\s*([^:]{1,40}?)\s*:\s*(.+)$/.exec(t);
@@ -1377,7 +1398,7 @@ function termLines(body){return(body||"").split("\n").map(l=>{const t=l.replace(
   return`<div class="tl"><span class="scr">${esc(t)}</span></div>`}).join("")}
 function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a,b)=>b.date-a.date);
  const locked=d.restricted&&!(SEEALL()&&UNLOCKED.has(d.id));
- const st=locked?'<span class="tst red">VERROUILLÉ</span>':d.restricted?'<span class="tst amber">DÉCHIFFRÉ</span>':'<span class="tst green">ACCÈS ACCORDÉ</span>';
+ const st=locked?`<span class="tst red">VERROUILLÉ${d.locked_until?` · <span data-until="${esc(d.id)}">${lockLeft(d)}</span>`:""}</span>`:d.restricted?'<span class="tst amber">DÉCHIFFRÉ</span>':'<span class="tst green">ACCÈS ACCORDÉ</span>';
  const ic=p=>svg(p);
  const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}<button type="button" class="tl" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}<span>Modifier</span></button><button type="button" class="tl td" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}<span>Supprimer</span></button></div>`:"";
  const lk=LOCKER()?`<button type="button" class="tlock${d.restricted?" on":""}" data-lock="${esc(d.id)}" title="${d.restricted?"Déverrouiller":"Verrouiller"} (Direction, Amirauté, B.R.S)">${ic(d.restricted?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}<span>${d.restricted?"Déverrouiller":"Verrouiller"}</span></button>`:"";
@@ -1386,7 +1407,7 @@ function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a
  if(locked){const fake=["MOT DE PASSE : "+rhex(14).toLowerCase(),"Code : "+rhex(4),"Cible : "+rhex(10),"Coordonnées : "+rhex(6)+"-"+rhex(4),"Rapport : "+rhex(22).toLowerCase(),"Contact : "+rhex(8)];
   body=`<div class="lblur" aria-hidden="true"><h3 class="tok">ACCÈS ACCORDÉ</h3><div class="ttl">${rhex(18)}</div>${fake.map(l=>`<div class="tl"><span class="k">${l.split(":")[0]} :</span><code>${l.split(":")[1]}</code></div>`).join("")}</div>
    <div class="lstamp">DOSSIER CONFIDENTIEL</div>
-   <div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES VERROUILLÉES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Accès réservé · Direction · Amirauté · B.R.S</small><button class="ldec${SEEALL()?" adm":""}" type="button" data-dec="${esc(d.id)}">${SEEALL()?"Déchiffrer":"Tenter l'accès"}</button></div>`}
+   <div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES VERROUILLÉES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Accès réservé · Direction · Amirauté · B.R.S</small><em class="lleft">${d.locked_until?`Se déverrouille dans <span data-until="${esc(d.id)}">${lockLeft(d)}</span>`:"Verrouillé jusqu'à nouvel ordre"}</em><button class="ldec${SEEALL()?" adm":""}" type="button" data-dec="${esc(d.id)}">${SEEALL()?"Déchiffrer":"Tenter l'accès"}</button></div>`}
  else body=`<h3 class="tok${d.restricted?" dec":""}">${d.restricted?"DONNÉES DÉCHIFFRÉES":"ACCÈS ACCORDÉ"}</h3><div class="ttl scr">${esc(d.title)}</div>${termLines(d.body)}${files.length?`<div class="tcaps">${fileBlock(files,false)}</div>`:""}`;
  return`<article class="term${locked?" lk":""}" data-did="${esc(d.id)}" style="--u:#2bff88">
   <div class="tbar"><b>TERMINAL</b><span class="tsec">#${esc(secName(d.section_id))}</span>${st}${lk}${act}</div>
@@ -1465,9 +1486,9 @@ $("view").addEventListener("click",async e=>{if(!cur.startsWith("~donnees"))retu
  const ed=t.closest("[data-dedit]");if(ed){openDataEditor(dataOf(ed.dataset.dedit));return}
  const rn=t.closest("[data-srn]");if(rn){e.preventDefault();openSectionForm(SECTIONS.find(s=>s.id===rn.dataset.srn));return}
  const arm=(b,msg,fn)=>{if(!b.classList.contains("arm")){b.classList.add("arm");b.title=msg;toast(msg,3000);setTimeout(()=>b.classList.remove("arm"),3000);return}fn()};
- const lkb=t.closest("[data-lock]");if(lkb){const d=dataOf(lkb.dataset.lock);if(!d||!LOCKER())return;const card=lkb.closest(".term");const to=!d.restricted;
-  if(await call("bos_data_lock",{p_id:d.id,p_locked:to})){const s=document.createElement("div");s.className="stamp "+(to?"r":"g");s.textContent=to?"VERROUILLÉ":"DÉVERROUILLÉ";card.appendChild(s);card.classList.add(to?"deny":"grant");
-   if(to)UNLOCKED.delete(d.id);await sleep(900);await refreshData();toast(to?"Données verrouillées : floutées pour les autres":"Données déverrouillées")}return}
+ const lkb=t.closest("[data-lock]");if(lkb){const d=dataOf(lkb.dataset.lock);if(!d||!LOCKER())return;
+  if(!d.restricted){openLockForm(d);return}
+  await doLock(d,false,0);return}
  const dd=t.closest("[data-ddel]");if(dd){arm(dd,"Clique encore pour supprimer ces données",async()=>{if(await call("bos_data_delete",{p_id:dd.dataset.ddel},"Données supprimées"))refreshData()});return}
  const sd=t.closest("[data-sdel]");if(sd){e.preventDefault();const n=DATA.filter(d=>d.section_id===sd.dataset.sdel).length;
   arm(sd,n?"Clique encore : la section et ses "+n+" donnée(s) seront supprimées":"Clique encore pour supprimer la section",async()=>{if(await call("bos_section_delete",{p_id:sd.dataset.sdel},"Section supprimée")){if(cur==="~donnees/"+sd.dataset.sdel)location.hash="#/~donnees";refreshData()}})}});
