@@ -914,6 +914,16 @@ body.locked .hx{min-height:calc(100vh - 200px)}
 a.dl-i:hover b{color:var(--ut)}
 @media(max-width:1000px){.arcx,.dir-g{grid-template-columns:1fr}}
 @media(max-width:560px){.dir-q>div{grid-template-columns:1fr}}
+/* ---------- Sélecteur d'unités compact ---------- */
+.upick,.mbox .upick{display:flex;flex-wrap:wrap;gap:6px;grid-template-columns:none}
+.uopt{gap:7px;padding:4px 12px 4px 4px;border-radius:999px}
+.uopt img{width:24px;height:24px}
+.uopt small{display:none}
+.uopt span{padding-right:0}
+.uopt b{font-size:13px;letter-spacing:.08em;white-space:nowrap}
+.uopt::after,.uopt:has(input:checked)::after{content:none}
+.uopt:has(input:checked){box-shadow:0 0 0 1px var(--uc),0 0 14px color-mix(in srgb,var(--uc) 30%,transparent)}
+.uhint{margin-top:6px;font-size:12px}
 </style>
 </head>
 <body>
