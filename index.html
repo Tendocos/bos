@@ -924,6 +924,32 @@ a.dl-i:hover b{color:var(--ut)}
 .uopt::after,.uopt:has(input:checked)::after{content:none}
 .uopt:has(input:checked){box-shadow:0 0 0 1px var(--uc),0 0 14px color-mix(in srgb,var(--uc) 30%,transparent)}
 .uhint{margin-top:6px;font-size:12px}
+/* ---------- Fenêtres : toujours accessibles sur petit écran ---------- */
+.mbox{max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain}
+.mbox.wide{padding:22px 24px}
+.mbox.wide h2{margin-bottom:12px;font-size:20px}
+.mbox.wide .fld{margin-bottom:10px}
+.mbox.wide .fld input,.mbox.wide .fld select{height:38px}
+.mbox.wide .mfoot{margin-top:10px;padding-top:10px;font-size:13px}
+.mbox .uopt img{width:18px;height:18px}
+.mbox .uopt{padding:3px 10px 3px 3px;gap:6px}
+.mbox .uopt b{font-size:12px}
+/* ---------- Données : éditeur compact, actions, dossier confidentiel ---------- */
+.mbox.wide .fld textarea{min-height:90px;height:110px}
+.dtup{margin-bottom:6px;font-size:12px}.dtup .b{height:32px;font-size:13px}
+.dtpend div{width:60px;height:46px}
+#dtf .mfoot{margin:0 0 6px!important;font-size:12px}
+#dtf .merr{min-height:0}
+.tact .tl{display:inline-flex;align-items:center;width:auto;padding:0 8px;gap:5px;font:600 11px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase}
+.tact .tl.td{color:#ff8a90;border-color:#4a1418}.tact .tl.td:hover{border-color:#ff3b45;color:#fff}
+.tlock{flex:none;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 9px;border:1px solid #c9a227;border-radius:3px;background:rgba(201,162,39,.08);color:#ecd27a;font:700 11px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.tlock svg{width:14px;height:14px}.tlock:hover{background:#c9a227;color:#000}
+.tlock.on{border-color:#2bff88;color:#7dffb0;background:rgba(43,255,136,.08)}.tlock.on:hover{background:#2bff88;color:#000}
+.lblur{position:absolute;inset:0;padding:16px;filter:blur(6px);opacity:.55;pointer-events:none;user-select:none}
+.lstamp{position:absolute;left:50%;top:22px;z-index:2;transform:translateX(-50%) rotate(-6deg);padding:6px 16px;border:3px double #ff3b45;color:#ff3b45;font:900 14px Orbitron,sans-serif;letter-spacing:.22em;white-space:nowrap;background:rgba(0,0,0,.6);text-shadow:0 0 12px rgba(255,59,69,.7);animation:stampin 3s ease-in-out infinite}
+@keyframes stampin{0%,100%{opacity:.85}50%{opacity:1;box-shadow:0 0 22px rgba(255,59,69,.45)}}
+.term.lk .lmid{padding-top:40px;min-height:250px}
+@media(max-width:560px){.tact .tl span,.tlock span{display:none}}
 </style>
 </head>
 <body>
@@ -1239,6 +1265,7 @@ const OBS=u=>u==="amiraute"||u==="brs";
 const unitsOf=a=>{const l=a&&Array.isArray(a.units)&&a.units.length?a.units:[(a&&a.unit)||"bos"];const r=PRIO.filter(k=>l.includes(k));return r.length?r:["bos"]};
 const unitOf=a=>UNITS[unitsOf(a)[0]]||UNITS.bos;
 const READALL=a=>unitsOf(a).some(k=>k==="direction"||OBS(k));
+const LOCKER=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).some(k=>k==="direction"||k==="amiraute"||k==="brs"));
 const SEEALL=()=>IS_ADMIN||!!(SESSION&&READALL(SESSION));
 const roleLabel=a=>a.role==="owner"?"Propriétaire":a.role==="admin"?"Admin":unitsOf(a).some(OBS)?"Lecture intégrale":unitsOf(a).includes("direction")?"Direction":"Membre";
 const uvars=u=>`--uc:${u.c};--ut:${u.t}`;
@@ -1348,14 +1375,17 @@ function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a
  const locked=d.restricted&&!(SEEALL()&&UNLOCKED.has(d.id));
  const st=locked?'<span class="tst red">VERROUILLÉ</span>':d.restricted?'<span class="tst amber">DÉCHIFFRÉ</span>':'<span class="tst green">ACCÈS ACCORDÉ</span>';
  const ic=p=>svg(p);
- const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}<button type="button" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}</button><button type="button" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></div>`:"";
+ const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}<button type="button" class="tl" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}<span>Modifier</span></button><button type="button" class="tl td" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}<span>Supprimer</span></button></div>`:"";
+ const lk=LOCKER()?`<button type="button" class="tlock${d.restricted?" on":""}" data-lock="${esc(d.id)}" title="${d.restricted?"Déverrouiller":"Verrouiller"} (Direction, Amirauté, B.R.S)">${ic(d.restricted?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}<span>${d.restricted?"Déverrouiller":"Verrouiller"}</span></button>`:"";
  const meta=`${d.created_by?esc(d.created_by)+" · ":""}${fdate(Date.parse(d.created_at)||Date.now())}`;
  let body;
- if(locked){let rain="";for(let i=0;i<70;i++)rain+=rhex(48)+" ";
-  body=`<div class="lrain" aria-hidden="true">${rain}</div><div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES RESTREINTES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Chiffrement B.O.S · niveau Direction</small><button class="ldec${SEEALL()?" adm":""}" type="button" data-dec="${esc(d.id)}">${SEEALL()?"Déchiffrer":"Tenter l'accès"}</button></div>`}
+ if(locked){const fake=["MOT DE PASSE : "+rhex(14).toLowerCase(),"Code : "+rhex(4),"Cible : "+rhex(10),"Coordonnées : "+rhex(6)+"-"+rhex(4),"Rapport : "+rhex(22).toLowerCase(),"Contact : "+rhex(8)];
+  body=`<div class="lblur" aria-hidden="true"><h3 class="tok">ACCÈS ACCORDÉ</h3><div class="ttl">${rhex(18)}</div>${fake.map(l=>`<div class="tl"><span class="k">${l.split(":")[0]} :</span><code>${l.split(":")[1]}</code></div>`).join("")}</div>
+   <div class="lstamp">DOSSIER CONFIDENTIEL</div>
+   <div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES VERROUILLÉES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Accès réservé · Direction · Amirauté · B.R.S</small><button class="ldec${SEEALL()?" adm":""}" type="button" data-dec="${esc(d.id)}">${SEEALL()?"Déchiffrer":"Tenter l'accès"}</button></div>`}
  else body=`<h3 class="tok${d.restricted?" dec":""}">${d.restricted?"DONNÉES DÉCHIFFRÉES":"ACCÈS ACCORDÉ"}</h3><div class="ttl scr">${esc(d.title)}</div>${termLines(d.body)}${files.length?`<div class="tcaps">${fileBlock(files,false)}</div>`:""}`;
  return`<article class="term${locked?" lk":""}" data-did="${esc(d.id)}" style="--u:#2bff88">
-  <div class="tbar"><b>TERMINAL</b><span class="tsec">#${esc(secName(d.section_id))}</span>${st}${act}</div>
+  <div class="tbar"><b>TERMINAL</b><span class="tsec">#${esc(secName(d.section_id))}</span>${st}${lk}${act}</div>
   <div class="ttabs"><span class="on">${locked?"Chiffré":"Piratage"}</span><span>Données${!locked&&files.length?" · "+files.length:""}</span></div>
   <div class="tbody">${body}</div>
   <div class="tfoot">${!locked&&(d.body||"").trim()?`<button class="tcopyall" type="button" data-copyall="${esc(d.id)}">Copier le contenu</button>`:""}<div class="tprompt">root@bos-terminal:~$<span class="in">${locked?"accès refusé : habilitation requise":meta}<span class="cur"></span></span></div></div>
@@ -1400,8 +1430,7 @@ function openDataEditor(d){if(!CAN)return;DEDIT=d||null;PEND=[];const sid=d?d.se
  openModal(`<form id="dtf"><div class="sk">Données BOS</div><h2 id="lgt">${d?"Modifier les données":"Nouvelles données"}</h2>
   <label class="fld">Section<select id="dts">${SECTIONS.map(s=>`<option value="${esc(s.id)}"${s.id===sid?" selected":""}>#${esc(s.name)}</option>`).join("")}</select></label>
   <label class="fld">Titre<input id="dtt" required maxlength="120" value="${d?esc(d.title||""):""}" placeholder="Ex. Piratage du terminal séparatiste, secteur 7"></label>
-  <label class="fld">Contenu du terminal<textarea id="dtb" spellcheck="false" placeholder="MOT DE PASSE : qiudjq...&#10;Code : 4471&#10;Notes libres...">${d?esc(d.body||""):""}</textarea></label>
-  <label class="chk"><input type="checkbox" id="dtr"${d&&d.restricted?" checked":""}><span><b>Données restreintes</b><small>Verrouillées pour les membres : seuls les admins peuvent les déchiffrer. Le texte et les captures ne sont jamais envoyés aux autres.</small></span></label>
+  <label class="fld">Contenu du terminal<textarea id="dtb" rows="4" spellcheck="false" placeholder="MOT DE PASSE : qiudjq...&#10;Code : 4471&#10;Notes libres...">${d?esc(d.body||""):""}</textarea></label>
   <div class="dtup"><label class="b">${svg('<path d="M12 5v14M5 12h14"/>')}<span>Ajouter des captures</span><input type="file" multiple hidden id="dtfile"></label><span>ou colle une capture d'écran avec Ctrl+V</span></div>
   <div class="dtpend" id="dtpend"></div>
   <p class="mfoot" style="margin:0 0 12px;padding:0;border:0">Astuce : écris <b>Nom : valeur</b> sur une ligne pour avoir un bouton « Copier » à côté.</p>
@@ -1419,8 +1448,8 @@ $("lgbox").addEventListener("submit",async e=>{const f=e.target;if(f.id!=="dtf"&
   if(ok){closeModal();await loadData();nav();if(!id&&typeof ok==="string")location.hash="#/~donnees/"+ok;else view()}return}
  const title=$("dtt").value.trim();if(!title){$("dterr").textContent="Donne un titre.";return}
  const sb=f.querySelector("[type=submit]");sb.disabled=true;
- try{const id=await call("bos_data_save",{p_id:DEDIT?DEDIT.id:null,p_section:$("dts").value,p_title:title,p_body:$("dtb").value,p_restricted:$("dtr").checked},DEDIT?"Données modifiées":"Données ajoutées");
-  if(!id)return;const files=PEND.slice();closeModal();if($("dtr").checked)UNLOCKED.add(id);
+ try{const id=await call("bos_data_save",{p_id:DEDIT?DEDIT.id:null,p_section:$("dts").value,p_title:title,p_body:$("dtb").value,p_restricted:false},DEDIT?"Données modifiées":"Données ajoutées");
+  if(!id)return;const files=PEND.slice();closeModal();
   if(files.length)await addFiles(files,"~data/"+id);await refreshData()}finally{sb.disabled=false}},true);
 $("view").addEventListener("click",async e=>{if(!cur.startsWith("~donnees"))return;const t=e.target;
  const dec=t.closest("[data-dec]");if(dec){const card=dec.closest(".term"),d=dataOf(dec.dataset.dec);if(d)hackSeq(card,d);return}
@@ -1432,6 +1461,9 @@ $("view").addEventListener("click",async e=>{if(!cur.startsWith("~donnees"))retu
  const ed=t.closest("[data-dedit]");if(ed){openDataEditor(dataOf(ed.dataset.dedit));return}
  const rn=t.closest("[data-srn]");if(rn){e.preventDefault();openSectionForm(SECTIONS.find(s=>s.id===rn.dataset.srn));return}
  const arm=(b,msg,fn)=>{if(!b.classList.contains("arm")){b.classList.add("arm");b.title=msg;toast(msg,3000);setTimeout(()=>b.classList.remove("arm"),3000);return}fn()};
+ const lkb=t.closest("[data-lock]");if(lkb){const d=dataOf(lkb.dataset.lock);if(!d||!LOCKER())return;const card=lkb.closest(".term");const to=!d.restricted;
+  if(await call("bos_data_lock",{p_id:d.id,p_locked:to})){const s=document.createElement("div");s.className="stamp "+(to?"r":"g");s.textContent=to?"VERROUILLÉ":"DÉVERROUILLÉ";card.appendChild(s);card.classList.add(to?"deny":"grant");
+   if(to)UNLOCKED.delete(d.id);await sleep(900);await refreshData();toast(to?"Données verrouillées : floutées pour les autres":"Données déverrouillées")}return}
  const dd=t.closest("[data-ddel]");if(dd){arm(dd,"Clique encore pour supprimer ces données",async()=>{if(await call("bos_data_delete",{p_id:dd.dataset.ddel},"Données supprimées"))refreshData()});return}
  const sd=t.closest("[data-sdel]");if(sd){e.preventDefault();const n=DATA.filter(d=>d.section_id===sd.dataset.sdel).length;
   arm(sd,n?"Clique encore : la section et ses "+n+" donnée(s) seront supprimées":"Clique encore pour supprimer la section",async()=>{if(await call("bos_section_delete",{p_id:sd.dataset.sdel},"Section supprimée")){if(cur==="~donnees/"+sd.dataset.sdel)location.hash="#/~donnees";refreshData()}})}});
