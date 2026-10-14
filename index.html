@@ -237,7 +237,7 @@ footer b{color:var(--tx)}
   .sr:focus-within>svg{opacity:0}
   #res{position:fixed;left:50%;transform:translateX(-50%);top:calc(60px + env(safe-area-inset-top,0px));width:min(560px,calc(100vw - 24px));z-index:60}
 }
-@media(max-width:1240px){
+@media(max-width:1300px){
   #burger{display:grid}
   #nav .navacct{display:flex;gap:8px;padding:16px 0 0;margin-top:8px;border-top:1px solid var(--ln)}#nav .navacct .b{flex:1;justify-content:center;height:44px}
   nav#nav{position:fixed;left:0;right:0;top:calc(64px + env(safe-area-inset-top,0px));bottom:0;margin:0;flex-direction:column;align-items:stretch;gap:2px;padding:12px 16px 32px;overflow:auto;
@@ -544,15 +544,15 @@ footer .in{font-family:Rajdhani,sans-serif;letter-spacing:.12em;text-transform:u
 .lk{display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid color-mix(in srgb,var(--c) 50%,transparent);background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c);font-weight:600;font-size:12px}
 .ldet{color:#c4c6cf;overflow-wrap:anywhere}
 @media(max-width:860px){.lhead{display:none}.lrow{grid-template-columns:1fr auto;gap:4px 10px}.lrow .ld{grid-column:1;order:2}.lrow .lw{order:1}.lrow>span:nth-child(3){order:0;grid-column:1/-1}.ldet{grid-column:1/-1;order:3}}
-@media(min-width:1241px){body.isadm .brand>div{display:none}}
-@media(max-width:1700px) and (min-width:1241px){
+@media(min-width:1301px){body.isadm .brand>div{display:none}}
+@media(max-width:1700px) and (min-width:1301px){
   .hd{gap:8px}
   .nb{font-size:14px;letter-spacing:.04em;padding:0 7px;gap:4px}
   .dd .nb svg{width:11px;height:11px}
   .adm{letter-spacing:.08em;padding:3px 6px;margin-left:0}
 }
-@media(max-width:1500px) and (min-width:1241px){body.isadm .who .wt{display:none}body.isadm .who{width:32px;padding:0;justify-content:center;margin-left:2px}}
-@media(max-width:1400px) and (min-width:1241px){.nb{font-size:13px;letter-spacing:.02em;padding:0 6px}.nb.nbdata i{display:none}.brand>div{display:none}}
+@media(max-width:1800px) and (min-width:1301px){body.isadm .who .wt{display:none}body.isadm .who{width:32px;padding:0;justify-content:center;margin-left:2px}}
+@media(max-width:1400px) and (min-width:1301px){.nb{font-size:13px;letter-spacing:.02em;padding:0 6px}.nb.nbdata i{display:none}.brand>div{display:none}}
 @media(min-width:1801px){
   body.isadm .sr kbd{display:none}
   body.isadm #q{width:40px;padding:0;color:transparent;cursor:pointer}
@@ -756,6 +756,19 @@ body.locked .hx{min-height:calc(100vh - 200px)}
 .dtpend button{position:absolute;top:2px;right:2px;width:20px;height:20px;padding:0;border:0;border-radius:2px;background:rgba(0,0,0,.8);color:#fff;cursor:pointer;font-size:12px}
 @media(max-width:900px){.dw{grid-template-columns:1fr}.dsb{position:static;display:flex;gap:6px;overflow-x:auto;padding:8px}.dsh{display:none}.dch{flex:none}.dch .dsa{display:flex}.dadd{width:auto;flex:none;margin:0}.dhead .st{margin-left:0}}
 @media(max-width:560px){.tl{flex-wrap:wrap}.tcp{margin-left:0}.dhead{padding:18px}}
+/* ---------- Barre de navigation : style icônes ---------- */
+.nb{font:600 13.5px Rajdhani,system-ui,sans-serif;letter-spacing:.16em;color:#8b8d98;gap:8px;border-radius:6px;padding:0 11px}
+#nav .nb svg.ni{width:16px;height:16px;flex:none;stroke-width:1.7;opacity:.9;transform:none!important;transition:color .2s}
+.dd .nb svg:not(.ni){width:10px;height:10px;opacity:.6;margin-left:-2px}
+.nb:hover,.nb[aria-expanded="true"]{color:#e9e9ee;background:rgba(255,255,255,.04)}
+.nb.on,.nb.on:hover{color:#ff4d55;background:none;box-shadow:none;text-shadow:0 0 14px rgba(227,33,43,.45)}
+#nav .nb.on svg.ni{filter:drop-shadow(0 0 6px rgba(227,33,43,.6))}
+.nb.nbdata{color:#6fcf97}.nb.nbdata.on{color:#2bff88;text-shadow:0 0 14px rgba(43,255,136,.45)}#nav .nb.nbdata.on svg.ni{filter:drop-shadow(0 0 6px rgba(43,255,136,.6))}
+.dd.set .nb{color:#c9737a}.dd.set .nb.on{color:#ff4d55}
+@media(max-width:1760px) and (min-width:1301px){.nb{letter-spacing:.12em;padding:0 9px}}
+@media(max-width:1600px) and (min-width:1301px){.nb{font-size:13px;letter-spacing:.08em;padding:0 7px;gap:6px}#nav .nb svg.ni{width:15px;height:15px}}
+@media(max-width:1400px) and (min-width:1301px){.nb{font-size:12.5px;letter-spacing:.04em;padding:0 6px;gap:5px}#nav .nb svg.ni{width:14px;height:14px}}
+@media(max-width:1300px){.nb{font-size:17px;letter-spacing:.1em;justify-content:flex-start}#nav .nb svg.ni{width:18px;height:18px}.dd .nb svg:not(.ni){margin-left:auto}}
 </style>
 </head>
 <body>
@@ -874,18 +887,20 @@ function md(src){let h="",st=[],card=false,cards=false,para=[];
 function groups(){const g=[],ix={};for(const p of Object.keys(store)){if(p===HOME)continue;const i=p.indexOf("/");
  if(i<0){g.push({file:p});continue}const f=p.slice(0,i);if(!(f in ix)){ix[f]=g.length;g.push({folder:f,items:[]})}g[ix[f]].items.push(p)}return g}
 function logoFor(p){const k=HK(p);return IMG[U[k].logo]}
-function nav(){if(!SESSION){$("nav").innerHTML="";return}let h=`<a class="nb${cur===HOME?" on":""}" href="#/">Accueil</a>`;
+const NI=p=>svg(p,' class="ni"');
+const NICO={home:'<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5h4v5"/>',doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/>',term:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/>'};
+function nav(){if(!SESSION){$("nav").innerHTML="";return}let h=`<a class="nb${cur===HOME?" on":""}" href="#/">${NI(NICO.home)}Accueil</a>`;
  for(const g of groups()){
-  if(g.file){h+=`<a class="nb${cur===g.file?" on":""}" href="${href(g.file)}">${esc(nm(g.file))}</a>`;continue}
+  if(g.file){h+=`<a class="nb${cur===g.file?" on":""}" href="${href(g.file)}">${NI(NICO.doc)}${esc(nm(g.file))}</a>`;continue}
   const on=cur.startsWith(g.folder+"/");
-  h+=`<div class="dd"><button class="nb${on?" on":""}" aria-expanded="false" aria-haspopup="true">${esc(SHORT[g.folder]||g.folder)}${CHEV}</button><div class="menu"><div class="mt">${esc(g.folder)}</div>`+
+  h+=`<div class="dd"><button class="nb${on?" on":""}" aria-expanded="false" aria-haspopup="true">${NI(ICO[g.folder]||ICO["B.O.S"])}${esc(SHORT[g.folder]||g.folder)}${CHEV}</button><div class="menu"><div class="mt">${esc(g.folder)}</div>`+
    g.items.map(p=>`<a class="mi${p===cur?" on":""}" href="${href(p)}" style="--u:${U[HK(p)].c}"><img src="${logoFor(p)}" alt=""><span>${esc(p.slice(g.folder.length+1))}</span></a>`).join("")+"</div></div>"}
- h+=`<div class="dd ddata"><button class="nb nbdata${cur.startsWith("~donnees")?" on":""}" aria-expanded="false" aria-haspopup="true"><i></i>Données BOS${CHEV}</button><div class="menu"><div class="mt">Données BOS · canaux</div>`+
+ h+=`<div class="dd ddata"><button class="nb nbdata${cur.startsWith("~donnees")?" on":""}" aria-expanded="false" aria-haspopup="true">${NI(NICO.term)}Données BOS${CHEV}</button><div class="menu"><div class="mt">Données BOS · canaux</div>`+
   `<a class="mi${cur==="~donnees"?" on":""}" href="#/~donnees" style="--u:#2bff88"><span class="mic dic">${svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/>')}</span><span><b>Toutes les données</b><small>${DATA.length} donnée${DATA.length>1?"s":""}</small></span></a>`+
   SECTIONS.map(s=>{const n=DATA.filter(d=>d.section_id===s.id),r=n.filter(d=>d.restricted).length;return`<a class="mi${cur==="~donnees/"+s.id?" on":""}" href="#/~donnees/${esc(s.id)}" style="--u:#2bff88"><span class="mic dic">#</span><span><b>${esc(s.name)}</b><small>${n.length} donnée${n.length>1?"s":""}${r?` · <em>${r} restreinte${r>1?"s":""}</em>`:""}</small></span></a>`}).join("")+
   (CAN?`<button class="mi" data-snew><span class="mic dic">${svg('<path d="M12 5v14M5 12h14"/>')}</span><span><b>Nouvelle section</b><small>Ajouter un canal</small></span></button>`:"")+`</div></div>`;
  if(CAN){const it=[["~logs","Journal d'activité","Tout ce qui a été modifié, et par qui"],["~equipe","Équipe et accès","Comptes, admins et mots de passe"],["~fichiers","Fichiers déposés","Tous les fichiers du site"]];
-  h+=`<div class="dd set"><button class="nb${cur.startsWith("~")?" on":""}" aria-expanded="false" aria-haspopup="true">${svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',' class="gear"')}Réglages${CHEV}</button><div class="menu"><div class="mt">Réglages · admins</div>`+
+  h+=`<div class="dd set"><button class="nb${cur.startsWith("~")?" on":""}" aria-expanded="false" aria-haspopup="true">${svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',' class="gear ni"')}Réglages${CHEV}</button><div class="menu"><div class="mt">Réglages · admins</div>`+
    it.map(([p,l,s])=>`<a class="mi${cur===p?" on":""}" href="#/${p}"><span class="mic">${svg(p=="~logs"?'<path d="M4 6h16M4 12h16M4 18h10"/>':p=="~equipe"?'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.7.8 2.7 2.6 3 5.2"/>':'<path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/>')}</span><span><b>${l}</b><small>${s}</small></span></a>`).join("")+
    `<button class="mi" data-signup><span class="mic">${svg('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M19 8v6M16 11h6"/>')}</span><span><b>Créer un compte</b><small>Nouveau membre ou admin</small></span></button><button class="mi" data-newpage><span class="mic">${svg('<path d="M12 5v14M5 12h14"/>')}</span><span><b>Nouvelle page</b><small>Créer une page dans le site</small></span></button></div></div>`}
  if(HOSTED&&(!SESSION&&!OWNER||MANAGER()))h+=`<div class="navacct">${!SESSION&&!OWNER?`<button class="b" data-login>Connexion</button>`:""}${MANAGER()?`<button class="b p" data-signup>Créer un compte</button>`:""}</div>`;
@@ -893,7 +908,7 @@ function nav(){if(!SESSION){$("nav").innerHTML="";return}let h=`<a class="nb${cu
 function closeMenus(except){document.querySelectorAll(".menu.open").forEach(m=>{if(m!==except){m.classList.remove("open");const b=m.previousElementSibling;if(b)b.setAttribute("aria-expanded","false")}})}
 $("nav").addEventListener("click",e=>{const b=e.target.closest(".dd>.nb");if(b){const m=b.nextElementSibling,o=hoverable.matches?true:!m.classList.contains("open");closeMenus(m);m.classList.toggle("open",o);b.setAttribute("aria-expanded",o);return}
  if(e.target.closest("a"))closeAll()});
-const hoverable=matchMedia("(hover:hover) and (min-width:1241px)");
+const hoverable=matchMedia("(hover:hover) and (min-width:1301px)");
 $("nav").addEventListener("mouseover",e=>{if(!hoverable.matches)return;const d=e.target.closest(".dd");if(!d)return;const m=d.querySelector(".menu");if(!m.classList.contains("open")){closeMenus(m);m.classList.add("open");d.firstElementChild.setAttribute("aria-expanded","true")}});
 $("nav").addEventListener("mouseleave",()=>{if(hoverable.matches)closeMenus()});
 function closeAll(){closeMenus();$("nav").classList.remove("open");$("burger").setAttribute("aria-expanded","false");$("res").classList.remove("open");document.body.style.overflow=""}
