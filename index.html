@@ -961,6 +961,60 @@ a.dl-i:hover b{color:var(--ut)}
 .lkd input:checked+span{border-color:#ff3b45;color:#fff;background:rgba(255,59,69,.14);box-shadow:0 0 14px rgba(255,59,69,.3)}
 .lkd input:focus-visible+span{outline:2px solid #ff8a90}
 .lmid .lleft{font-style:normal;color:#ff8a90;font-size:12px;letter-spacing:.08em}
+/* ---------- Hologramme ARC ---------- */
+.holo{position:relative;flex:1;display:grid;place-items:center;min-height:300px;padding:18px 18px 52px;perspective:700px;overflow:hidden;background:radial-gradient(60% 50% at 50% 100%,rgba(60,160,255,.18),transparent 70%)}
+.holo .arc-img{position:relative;z-index:1;animation:holofloat 6s ease-in-out infinite}
+.holo .arc-img img{max-height:280px;filter:grayscale(1) brightness(1.25) sepia(1) hue-rotate(165deg) saturate(5) contrast(1.15) drop-shadow(0 0 10px rgba(80,180,255,.8));opacity:.88;
+ -webkit-mask-image:repeating-linear-gradient(0deg,#000 0 2px,rgba(0,0,0,.55) 2px 4px);mask-image:repeating-linear-gradient(0deg,#000 0 2px,rgba(0,0,0,.55) 2px 4px);animation:holoflick 5s infinite}
+.holo-beam{position:absolute;left:18%;right:18%;top:6%;bottom:22px;background:linear-gradient(0deg,rgba(80,180,255,.28),rgba(80,180,255,0) 85%);clip-path:polygon(42% 100%,58% 100%,100% 0,0 0);pointer-events:none;animation:holoflick 5s infinite}
+.holo-base{position:absolute;left:50%;bottom:14px;width:58%;height:18px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(120,200,255,.9),rgba(40,120,255,.25) 50%,transparent 72%);box-shadow:0 0 30px rgba(60,160,255,.5)}
+.holo::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 0,rgba(120,200,255,.12) 50%,transparent 100%) 0 0/100% 40px no-repeat;animation:holoscan 3.5s linear infinite}
+.holo-ph{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;color:#8fd0ff;animation:holofloat 6s ease-in-out infinite}
+.holo-ph svg{width:150px;height:150px;fill:none;stroke:rgba(120,200,255,.7);stroke-width:1.2;stroke-dasharray:4 6;animation:spin 18s linear infinite;filter:drop-shadow(0 0 6px rgba(80,180,255,.8))}
+.holo-ph b{font:700 15px Rajdhani,sans-serif;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 0 10px rgba(80,180,255,.8)}.holo-ph span{color:#6f93b8;font-size:13px;max-width:280px}
+@keyframes holofloat{50%{transform:translateY(-6px) rotateY(5deg)}}
+@keyframes holoflick{0%,46%,52%,100%{opacity:.9}47%{opacity:.35}48%{opacity:.95}50%{opacity:.6}}
+@keyframes holoscan{from{background-position:0 -40px}to{background-position:0 100%}}
+/* ---------- Tâches ---------- */
+.tk{margin-top:16px;padding:16px 18px;border:1px solid color-mix(in srgb,var(--uc) 35%,#1d1d22);border-radius:10px;background:rgba(0,0,0,.35)}
+.tk-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.tk-h h3{display:flex;align-items:center;gap:8px;margin:0;font:700 15px Rajdhani,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ut)}
+.tk-h h3 svg{width:18px;height:18px}.tk-h>span{color:var(--mu);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.tk-h .b{height:34px}
+.tk-i{display:flex;align-items:center;gap:12px;padding:10px 12px;margin-top:8px;border:1px solid #1f2128;border-left:3px solid var(--pc);border-radius:6px;background:#08090b}
+.tk-i.s-terminee{opacity:.55}.tk-i.s-terminee .tk-m b{text-decoration:line-through}
+.tk-m{flex:1;min-width:0}.tk-m b{display:block;font-size:14.5px}.tk-m p{margin:3px 0 0;color:#b7bdc9;font-size:13px;white-space:pre-wrap}
+.tk-m small{display:block;margin-top:4px;color:var(--mu);font-size:12px}.tk-m small em{font-style:normal;color:var(--pc);font-weight:700;text-transform:uppercase;letter-spacing:.08em}.tk-m .late{color:#ff6b72}
+.tk-s{display:flex;gap:4px;flex:none;flex-wrap:wrap;justify-content:flex-end}
+.tk-s button{height:28px;padding:0 9px;border:1px solid #2a2a31;border-radius:3px;background:#0b0b0d;color:var(--mu);font:700 11px Rajdhani,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.tk-s button:hover{color:#fff;border-color:var(--uc)}.tk-s button.on{background:color-mix(in srgb,var(--uc) 22%,#000);border-color:var(--uc);color:#fff}
+.tk-s .tk-del{color:#ff8a90;border-color:#4a1418}.tk-s .tk-del.arm,.tk-s .tk-del:hover{background:#ff3b45;color:#fff;border-color:#ff3b45}
+.tk-g{margin-top:12px}.tk-g h4{display:flex;align-items:center;gap:8px;margin:0;font:700 14px Rajdhani,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ut)}
+.tk-g h4 img{width:22px;height:22px;border-radius:50%}.tk-g h4 em{margin-left:auto;font-style:normal;color:var(--mu);font-size:12px}
+.tk2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fld textarea#tkb{min-height:70px;height:80px}
+@media(max-width:640px){.tk-i{flex-direction:column;align-items:stretch}.tk-s{justify-content:flex-start}}
+/* ---------- HUD tactique ---------- */
+.hudw{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:16px;margin-top:16px}
+.hud-l,.hud-r{padding:16px 18px;border:1px solid #2c313b;border-radius:10px;background:radial-gradient(70% 70% at 50% 50%,rgba(43,255,136,.06),transparent 70%),#050706}
+.live{display:inline-flex;align-items:center;gap:6px;color:#2bff88;font:700 11px "JetBrains Mono",monospace;letter-spacing:.14em}.live i{width:7px;height:7px;border-radius:50%;background:#2bff88;box-shadow:0 0 8px #2bff88;animation:blink 1.2s steps(2) infinite}
+.hud{position:relative;aspect-ratio:1;margin:6px auto 0;max-width:340px;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#0a1a10 0,#030806 70%);box-shadow:inset 0 0 40px rgba(43,255,136,.15),0 0 0 1px #1d3a2a}
+.hud svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:rgba(43,255,136,.28);stroke-width:.35}.hud svg .d{stroke-dasharray:1 2;stroke:rgba(43,255,136,.15)}
+.sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(43,255,136,.35),rgba(43,255,136,0) 22%,transparent);animation:spin 4s linear infinite}
+.hq{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:2px 6px;border:1px solid #2bff88;border-radius:3px;background:#03140a;color:#2bff88;font:700 9px "JetBrains Mono",monospace;letter-spacing:.1em}
+.blip{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;z-index:2}
+.blip i{width:10px;height:10px;border-radius:50%;background:var(--uc);box-shadow:0 0 0 2px rgba(0,0,0,.6),0 0 12px var(--uc);animation:ping 2s ease-out infinite}
+.blip span{padding:1px 5px;border-radius:2px;background:rgba(0,0,0,.75);color:var(--ut);font:700 9px "JetBrains Mono",monospace;letter-spacing:.06em;white-space:nowrap}
+.blip.s-hs i{background:#555;box-shadow:none;animation:none}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--uc) 70%,transparent),0 0 12px var(--uc)}100%{box-shadow:0 0 0 14px transparent,0 0 12px var(--uc)}}
+.hud-k{display:flex;justify-content:center;gap:14px;margin-top:10px;color:var(--mu);font:11px "JetBrains Mono",monospace}.hud-k span{display:flex;align-items:center;gap:5px}
+.hud-k i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(43,255,136,.5)}.hud-k .k1{transform:scale(.45)}.hud-k .k2{transform:scale(.75)}
+.hud-r{display:grid;gap:8px;align-content:start}
+.tro{display:flex;align-items:center;gap:10px;padding:9px 10px;border:1px solid color-mix(in srgb,var(--uc) 35%,#1d1d22);border-left:3px solid var(--uc);border-radius:6px;background:#08090b}
+.tro img{width:30px;height:30px;border-radius:50%;background:#000}.tro>div{flex:1;min-width:0}
+.tro b{display:block;color:var(--ut);font:700 14px Rajdhani,sans-serif;letter-spacing:.12em;text-transform:uppercase}.tro small{color:var(--mu);font-size:12.5px}
+.tro .b{height:30px;font-size:12px}
+@media(max-width:1000px){.hudw{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -981,7 +1035,7 @@ a.dl-i:hover b{color:var(--ut)}
 </header>
 <div class="notice" id="notice" hidden></div>
 <main id="view"></main>
-<footer><div class="in"><span><b>Direction B.O.S :</b> Troxi / Tendo</span><span>Brigade des Opérations Spéciales · CloneWarsRP</span></div></footer>
+<footer><div class="in"><span><b>Direction B.O.S :</b> Armand.Isard / Kael Vorn</span><span>Brigade des Opérations Spéciales · CloneWarsRP</span></div></footer>
 <div class="toast" id="toast"></div>
 <div class="modal" id="lgm" role="dialog" aria-modal="true" aria-labelledby="lgt"><div class="mbox" id="lgbox"></div></div>
 <div class="dropov" id="dropov"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"/></svg><b>Dépose tes fichiers</b><span id="dropto"></span></div></div>
@@ -1024,9 +1078,9 @@ const API={
  rpc:async(fn,args)=>readJSON(await fetch(CFG.url+"/rest/v1/rpc/"+fn,{method:"POST",headers:H({"Content-Type":"application/json"}),body:JSON.stringify(args||{})})),
  get:async q=>readJSON(await fetch(CFG.url+"/rest/v1/"+q,{headers:H()}))};
 const tok=()=>SESSION&&SESSION.token;
-function lockOut(){SESSION=null;PREVIEW=false;saveSess();store={};FILES=[];ACCOUNTS=[];LOGS=[];LOADED=false;edit=false;SECTIONS=[];DATA=[];UNLOCKED.clear()}
+function lockOut(){SESSION=null;PREVIEW=false;saveSess();store={};FILES=[];ACCOUNTS=[];LOGS=[];LOADED=false;edit=false;SECTIONS=[];DATA=[];TASKS=[];USTAT=[];UNLOCKED.clear()}
 async function loadData(){if(!SESSION)return false;
- try{const d=await API.rpc("bos_get_data",{p_token:SESSION.token});const s={};((d&&d.pages)||[]).forEach(r=>s[r.path]=r.content);store=s;FILES=((d&&d.files)||[]).map(normFile);SECTIONS=(d&&d.sections)||[];DATA=(d&&d.data)||[];LOADED=true;notice("");return true}
+ try{const d=await API.rpc("bos_get_data",{p_token:SESSION.token});const s={};((d&&d.pages)||[]).forEach(r=>s[r.path]=r.content);store=s;FILES=((d&&d.files)||[]).map(normFile);SECTIONS=(d&&d.sections)||[];DATA=(d&&d.data)||[];TASKS=(d&&d.tasks)||[];USTAT=(d&&d.unit_status)||[];LOADED=true;notice("");return true}
  catch(e){if(/Session expirée/.test(e.message||"")){lockOut();toast("Session expirée : reconnecte-toi",3500)}else notice("Impossible de joindre la base de données pour l'instant. Réessaie dans un moment.");return false}}
 function saveSess(){try{SESSION?localStorage.setItem("bos-session",JSON.stringify(SESSION)):localStorage.removeItem("bos-session")}catch(e){}}
 async function call(fn,args,okMsg){if(!ONLINE){toast("Site pas encore relié à sa base de données");return null}
@@ -1312,6 +1366,48 @@ const pick=a=>a[Math.random()*a.length|0];
 function vig(s,k,dec){k=(k||"").normalize("NFD").replace(/[^A-Za-z]/g,"").toUpperCase();if(!k)return s;let j=0;
  return[...s].map(ch=>{const b=ch.normalize("NFD")[0];const up=b>="A"&&b<="Z",lo=b>="a"&&b<="z";if(!up&&!lo)return ch;
   const base=up?65:97,sh=k.charCodeAt(j++%k.length)-65;return String.fromCharCode((b.charCodeAt(0)-base+(dec?26-sh:sh))%26+base)}).join("")}
+/* ---------- Tâches de la Direction et situation des troupes ---------- */
+let TASKS=[],USTAT=[];
+const TUNITS=["arc","omega","bb","brs","amiraute","bos"];
+const ISDIR=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).includes("direction"));
+const PRI={normale:["Normale","#8b94a6"],haute:["Haute","#ffc247"],critique:["Critique","#ff3b45"]};
+const TST={a_faire:"À faire",en_cours:"En cours",terminee:"Terminée"};
+const USTATS={qg:["Au QG",.3],patrouille:["En patrouille",.56],mission:["En mission",.84],repos:["En repos",.42],hs:["Hors service",.95]};
+const fday=s=>s?new Date(s+"T12:00:00").toLocaleDateString("fr-FR",{day:"2-digit",month:"short"}):"";
+function taskRow(k,manage){const p=PRI[k.priority]||PRI.normale;const late=k.due&&k.status!=="terminee"&&new Date(k.due+"T23:59:59")<new Date();
+ return`<div class="tk-i s-${k.status}" style="--pc:${p[1]}"><div class="tk-m"><b>${esc(k.title)}</b>${k.body?`<p>${esc(k.body)}</p>`:""}<small><em>${p[0]}</em>${k.due?` · <span class="${late?"late":""}">${late?"en retard · ":""}avant le ${fday(k.due)}</span>`:""} · par ${esc(k.created_by||"la Direction")}${k.status!=="a_faire"&&k.updated_by?` · ${TST[k.status].toLowerCase()} (${esc(k.updated_by)})`:""}</small></div>
+ <div class="tk-s">${["a_faire","en_cours","terminee"].map(s=>`<button type="button" class="${k.status===s?"on":""}" data-tst="${esc(k.id)}" data-s="${s}">${TST[s]}</button>`).join("")}${manage?`<button type="button" class="tk-del" data-tdel="${esc(k.id)}" title="Supprimer la tâche">✕</button>`:""}</div></div>`}
+function taskBlock(unit){const l=TASKS.filter(x=>x.unit===unit);const open=l.filter(x=>x.status!=="terminee").length;
+ return`<div class="tk"><div class="tk-h"><h3>${svg('<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>')}Ordres de la Direction</h3><span>${open} en cours</span></div>${l.length?l.map(x=>taskRow(x,ISDIR())).join(""):'<p class="tnote">Aucune tâche pour l\'instant.</p>'}</div>`}
+function dirTasks(){const g=TUNITS.map(u=>{const l=TASKS.filter(x=>x.unit===u);if(!l.length)return"";const v=UNITS[u];
+  return`<div class="tk-g" style="${uvars(v)}"><h4><img src="${IMG[v.logo]}" alt="">${v.n}<em>${l.filter(x=>x.status!=="terminee").length} en cours</em></h4>${l.map(x=>taskRow(x,true)).join("")}</div>`}).join("");
+ return`<div class="tk dirtk"><div class="tk-h"><h3>${svg('<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>')}Tâches données aux unités</h3><button type="button" class="b p" data-tnew>${svg('<path d="M12 5v14M5 12h14"/>')}<span>Nouvelle tâche</span></button></div>${g||'<p class="tnote">Aucune tâche donnée pour l\'instant.</p>'}</div>`}
+function dirHUD(){const us=["bos","arc","omega","bb","brs","amiraute"];const st=u=>USTAT.find(x=>x.unit===u)||{status:"qg",location:""};
+ const blips=us.map((u,i)=>{const s=st(u),r=(USTATS[s.status]||USTATS.qg)[1]*46,a=(i/us.length)*2*Math.PI-Math.PI/2+.35;const v=UNITS[u];
+  return`<div class="blip s-${esc(s.status)}" style="left:${50+r*Math.cos(a)}%;top:${50+r*Math.sin(a)}%;${uvars(v)}"><i></i><span>${v.n}</span></div>`}).join("");
+ return`<div class="hudw"><div class="hud-l"><div class="tk-h"><h3>${svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>')}Situation tactique</h3><span class="live"><i></i>EN DIRECT</span></div>
+  <div class="hud"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="8"/><path d="M50 2v96M2 50h96"/><path class="d" d="M17 17l66 66M83 17 17 83"/></svg><div class="sweep"></div><div class="hq">QG</div>${blips}</div>
+  <div class="hud-k"><span><i class="k1"></i>QG</span><span><i class="k2"></i>Patrouille</span><span><i class="k3"></i>Mission</span></div></div>
+  <div class="hud-r">${us.map(u=>{const s=st(u),v=UNITS[u];return`<div class="tro" style="${uvars(v)}"><img src="${IMG[v.logo]}" alt=""><div><b>${v.n}</b><small>${(USTATS[s.status]||USTATS.qg)[0]}${s.location?" · "+esc(s.location):""}</small></div>${CAN||ISDIR()?`<button type="button" class="b" data-ustat="${u}">Mettre à jour</button>`:""}</div>`}).join("")}</div></div>`}
+function openTaskForm(){openModal(`<form id="tkf"><div class="sk">Direction</div><h2 id="lgt">Nouvelle tâche</h2>
+ <label class="fld">Pour l'unité<select id="tku">${TUNITS.map(u=>`<option value="${u}">${UNITS[u].n}</option>`).join("")}</select></label>
+ <label class="fld">Tâche<input id="tkt" required maxlength="140" placeholder="Ex. Reconnaissance du secteur 7"></label>
+ <label class="fld">Détails<textarea id="tkb" rows="3" maxlength="4000" placeholder="Consignes, lieu, contacts…"></textarea></label>
+ <div class="tk2"><label class="fld">Priorité<select id="tkp"><option value="normale">Normale</option><option value="haute">Haute</option><option value="critique">Critique</option></select></label><label class="fld">Échéance<input id="tkd" type="date"></label></div>
+ <p class="merr" id="tkerr"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Donner la tâche</button></div></form>`);$("lgbox").classList.add("wide")}
+function openUstatForm(u){const s=USTAT.find(x=>x.unit===u)||{status:"qg",location:""};const v=UNITS[u];
+ openModal(`<form id="usf" data-u="${u}"><div class="sk">Situation tactique</div><h2 id="lgt">${v.n}</h2><label class="fld">Statut<select id="uss">${Object.entries(USTATS).map(([k,x])=>`<option value="${k}"${k===s.status?" selected":""}>${x[0]}</option>`).join("")}</select></label>
+ <label class="fld">Position<input id="usl" maxlength="80" value="${esc(s.location||"")}" placeholder="Ex. Kamino, secteur 7"></label><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Mettre à jour</button></div></form>`)}
+$("lgbox").addEventListener("submit",async e=>{const f=e.target;if(f.id!=="tkf"&&f.id!=="usf")return;e.preventDefault();e.stopImmediatePropagation();
+ if(f.id==="tkf"){const ti=$("tkt").value.trim();if(!ti){$("tkerr").textContent="Donne un titre à la tâche.";return}
+  if(await call("bos_task_save",{p_id:null,p_unit:$("tku").value,p_title:ti,p_body:$("tkb").value,p_priority:$("tkp").value,p_due:$("tkd").value||null},"Tâche donnée à "+UNITS[$("tku").value].n)){closeModal();await refreshData()}}
+ else{const u=f.dataset.u;if(await call("bos_unit_status_save",{p_unit:u,p_status:$("uss").value,p_location:$("usl").value},"Position mise à jour")){closeModal();await refreshData()}}},true);
+$("view").addEventListener("click",async e=>{if(cur!==HOME||!SESSION)return;const t=e.target;
+ if(t.closest("[data-tnew]")){openTaskForm();return}
+ const us=t.closest("[data-ustat]");if(us){openUstatForm(us.dataset.ustat);return}
+ const ts=t.closest("[data-tst]");if(ts){if(ts.classList.contains("on"))return;if(await call("bos_task_status",{p_id:ts.dataset.tst,p_status:ts.dataset.s},"Tâche : "+TST[ts.dataset.s].toLowerCase()))await refreshData();return}
+ const td=t.closest("[data-tdel]");if(td){if(!td.classList.contains("arm")){td.classList.add("arm");toast("Clique encore pour supprimer la tâche",2500);setTimeout(()=>td.classList.remove("arm"),2500);return}
+  if(await call("bos_task_delete",{p_id:td.dataset.tdel},"Tâche supprimée"))await refreshData()}});
 function unitSpace(){if(!SESSION)return"";return unitsOf(SESSION).filter(k=>k!=="bos").map(unitPanel).join("")}
 function unitPanel(k){const u=UNITS[k];
  const head=(kick,title,sub,badge)=>`<div class="usp-h"><img src="${IMG[u.logo]}" alt=""><div><div class="usp-k">${kick}</div><h2>${title}</h2><p>${sub}</p></div>${badge?`<span class="usp-b">${badge}</span>`:""}</div>`;
@@ -1319,8 +1415,8 @@ function unitPanel(k){const u=UNITS[k];
  let body="";
  if(k==="arc"){const im=FILES.filter(f=>f.page==="~unit/arc"&&isImg(f)).sort((a,b)=>b.date-a.date)[0];
   body=head("Ton espace · ARC Alpha","Dossier ARC Alpha","Hommage aux Advanced Recon Commandos : leur arme de dotation et leur tenue.","Westar-M5")+
-  `<div class="arcx"><figure class="arc-bp">${im?`<button type="button" class="arc-img" data-zoom="${esc(furl(im))}"><img src="${esc(furl(im))}" alt="Schéma Westar-M5"></button>`:`<div class="arc-ph">${svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 15 5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.5"/>')}<b>Schéma du Westar-M5</b><span>${CAN?"Ajoute une image du schéma de l'arme ou de la tenue ARC.":"Le schéma sera bientôt ajouté."}</span></div>`}
-   <figcaption><span>SCHÉMA · WESTAR-M5</span>${CAN?`<label class="b">${svg('<path d="M12 5v14M5 12h14"/>')}<span>${im?"Remplacer":"Ajouter"} l'image</span><input type="file" accept="image/*" hidden data-unitup="arc"></label>`:""}</figcaption></figure>
+  `<div class="arcx"><figure class="arc-bp"><div class="holo">${im?`<button type="button" class="arc-img" data-zoom="${esc(furl(im))}"><img src="${esc(furl(im))}" alt="Schéma Westar-M5"></button>`:`<div class="holo-ph"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80"/><circle cx="100" cy="100" r="58"/><circle cx="100" cy="100" r="36"/><path d="M100 10v30M100 160v30M10 100h30M160 100h30"/></svg><b>Projection en attente</b><span>${CAN?"Ajoute l'image du schéma : elle sera projetée en hologramme.":"Le schéma sera bientôt projeté ici."}</span></div>`}<i class="holo-beam"></i><i class="holo-base"></i></div>
+   <figcaption><span>HOLO · SCHÉMA WESTAR-M5</span>${CAN?`<label class="b">${svg('<path d="M12 5v14M5 12h14"/>')}<span>${im?"Remplacer":"Ajouter"} l'image</span><input type="file" accept="image/*" hidden data-unitup="arc"></label>`:""}</figcaption></figure>
    <div class="arc-spec"><h3>Fiche technique · Westar-M5</h3><dl>${[["Type","Fusil blaster de précision"],["Dotation","ARC Alpha"],["Portée","Moyenne à longue"],["Modes de tir","Coup par coup · rafale"],["Atouts","Précision, fiabilité, modularité"]].map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join("")}</dl>
    <h3>Tenue ARC</h3><ul class="arc-kit">${["Casque avec télémètre","Épaulière de commandement","Kama de protection","Ceinture utilitaire","Marquages bleus ARC Alpha"].map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`}
  else if(k==="direction"){const nR=DATA.filter(d=>d.restricted).length;const ar=svg('<path d="M5 12h14M13 6l6 6-6 6"/>');
@@ -1351,6 +1447,7 @@ function unitPanel(k){const u=UNITS[k];
   body=head("Ton espace · Amirauté","Pont de commandement","Vue d'ensemble de toutes les unités. Accès en lecture à tout le site, sans modification possible.","Lecture intégrale")+
   `<div class="am-st"><div><b>${Object.keys(store).length}</b>pages</div><div><b>${DATA.length}</b>données</div><div><b>${nR}</b>restreintes</div><div><b>${FILES.length}</b>fichiers</div></div>
    <div class="am-u">${["bos","brs","arc","omega","bb"].map(x=>{const v=UNITS[x],p=regOf(x);return`<a style="${uvars(v)}" href="${p?href(p):"#/"}"><img src="${IMG[v.logo]}" alt=""><b>${v.n}</b><small>${esc(v.full)}</small><span>Règlement ${svg('<path d="M5 12h14M13 6l6 6-6 6"/>')}</span></a>`}).join("")}</div>`}
+ if(k==="direction")body+=dirHUD()+dirTasks();else if(TUNITS.includes(k))body+=taskBlock(k);
  return`<section class="usp usp-${k} fade" style="${uvars(u)}">${body}</section>`}
 $("view").addEventListener("click",async e=>{const t=e.target;if(cur!==HOME||!SESSION)return;
  const a=t.closest("[data-arc]");if(a){const key="bos-arc-"+SESSION.id+"-"+weekNo();let d=LS.get(key,[]);const i=+a.dataset.arc;d=d.includes(i)?d.filter(x=>x!==i):d.concat(i);LS.set(key,d);
@@ -1465,7 +1562,7 @@ function openDataEditor(d){if(!CAN)return;DEDIT=d||null;PEND=[];const sid=d?d.se
  $("lgbox").classList.add("wide")}
 function renderPend(){const el=$("dtpend");if(!el)return;
  el.innerHTML=PEND.map((f,i)=>`<div>${/^image\//.test(f.type)?`<img src="${URL.createObjectURL(f)}" alt="">`:esc(f.name.slice(0,22))}<button type="button" data-pr="${i}" aria-label="Retirer">✕</button></div>`).join("")}
-async function refreshData(){await loadData();if(cur.startsWith("~donnees"))view();nav()}
+async function refreshData(){await loadData();if(cur.startsWith("~donnees")||cur===HOME)view();nav()}
 function openSectionForm(s){if(!CAN)return;openModal(`<form id="sef" data-id="${s?esc(s.id):""}"><div class="sk">Données BOS</div><h2 id="lgt">${s?"Renommer la section":"Nouvelle section"}</h2><label class="fld">Nom de la section<input id="sen" required maxlength="40" value="${s?esc(s.name):""}" placeholder="Ex. Interceptions radio"></label><p class="merr" id="seerr"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">${s?"Renommer":"Créer"}</button></div></form>`)}
 $("lgbox").addEventListener("change",e=>{if(e.target.id==="dtfile"){PEND.push(...[...e.target.files].filter(f=>f.size>0));e.target.value="";renderPend()}});
 $("lgbox").addEventListener("click",e=>{const r=e.target.closest("[data-pr]");if(r){PEND.splice(+r.dataset.pr,1);renderPend()}});
