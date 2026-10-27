@@ -1015,6 +1015,10 @@ a.dl-i:hover b{color:var(--ut)}
 .tro b{display:block;color:var(--ut);font:700 14px Rajdhani,sans-serif;letter-spacing:.12em;text-transform:uppercase}.tro small{color:var(--mu);font-size:12.5px}
 .tro .b{height:30px;font-size:12px}
 @media(max-width:1000px){.hudw{grid-template-columns:1fr}}
+/* ---------- Bouton Discord ---------- */
+.b.dsc{display:inline-flex;align-items:center;gap:8px;background:#5865f2;border-color:#5865f2;color:#fff}
+.b.dsc:hover{background:#4752c4;border-color:#4752c4;color:#fff}
+.b.dsc .dico{width:18px;height:18px;flex:none}
 </style>
 </head>
 <body>
@@ -1145,11 +1149,11 @@ function nav(){if(!SESSION){$("nav").innerHTML="";return}let h=`<a class="nb${cu
   `<a class="mi${cur==="~donnees"?" on":""}" href="#/~donnees" style="--u:#2bff88"><span class="mic dic">${svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/>')}</span><span><b>Toutes les données</b><small>${DATA.length} donnée${DATA.length>1?"s":""}</small></span></a>`+
   SECTIONS.map(s=>{const n=DATA.filter(d=>d.section_id===s.id),r=n.filter(d=>d.restricted).length;return`<a class="mi${cur==="~donnees/"+s.id?" on":""}" href="#/~donnees/${esc(s.id)}" style="--u:#2bff88"><span class="mic dic">#</span><span><b>${esc(s.name)}</b><small>${n.length} donnée${n.length>1?"s":""}${r?` · <em>${r} restreinte${r>1?"s":""}</em>`:""}</small></span></a>`}).join("")+
   (CAN?`<button class="mi" data-snew><span class="mic dic">${svg('<path d="M12 5v14M5 12h14"/>')}</span><span><b>Nouvelle section</b><small>Ajouter un canal</small></span></button>`:"")+`</div></div>`;
- if(CAN){const it=[["~logs","Journal d'activité","Tout ce qui a été modifié, et par qui"],["~equipe","Équipe et accès","Comptes, admins et mots de passe"],["~fichiers","Fichiers déposés","Tous les fichiers du site"]];
+ if(CAN){const it=[["~logs","Journal d'activité","Tout ce qui a été modifié, et par qui"],["~equipe","Équipe et accès","Qui a accès, par unité"],["~fichiers","Fichiers déposés","Tous les fichiers du site"]];
   h+=`<div class="dd set"><button class="nb${cur.startsWith("~")?" on":""}" aria-expanded="false" aria-haspopup="true">${svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',' class="gear ni"')}Réglages${CHEV}</button><div class="menu"><div class="mt">Réglages · admins</div>`+
    it.map(([p,l,s])=>`<a class="mi${cur===p?" on":""}" href="#/${p}"><span class="mic">${svg(p=="~logs"?'<path d="M4 6h16M4 12h16M4 18h10"/>':p=="~equipe"?'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.7.8 2.7 2.6 3 5.2"/>':'<path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/>')}</span><span><b>${l}</b><small>${s}</small></span></a>`).join("")+
-   `<button class="mi" data-signup><span class="mic">${svg('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M19 8v6M16 11h6"/>')}</span><span><b>Créer un compte</b><small>Nouveau membre ou admin</small></span></button><button class="mi" data-newpage><span class="mic">${svg('<path d="M12 5v14M5 12h14"/>')}</span><span><b>Nouvelle page</b><small>Créer une page dans le site</small></span></button></div></div>`}
- if(HOSTED&&(!SESSION&&!OWNER||MANAGER()))h+=`<div class="navacct">${!SESSION&&!OWNER?`<button class="b" data-login>Connexion</button>`:""}${MANAGER()?`<button class="b p" data-signup>Créer un compte</button>`:""}</div>`;
+   `<button class="mi" data-newpage><span class="mic">${svg('<path d="M12 5v14M5 12h14"/>')}</span><span><b>Nouvelle page</b><small>Créer une page dans le site</small></span></button></div></div>`}
+ if(HOSTED&&!SESSION)h+=`<div class="navacct"><button class="b p dsc" data-login>${DSC_ICO}Connexion Discord</button></div>`;
  $("nav").innerHTML=h}
 function closeMenus(except){document.querySelectorAll(".menu.open").forEach(m=>{if(m!==except){m.classList.remove("open");const b=m.previousElementSibling;if(b)b.setAttribute("aria-expanded","false")}})}
 $("nav").addEventListener("click",e=>{const b=e.target.closest(".dd>.nb");if(b){const m=b.nextElementSibling,o=hoverable.matches?true:!m.classList.contains("open");closeMenus(m);m.classList.toggle("open",o);b.setAttribute("aria-expanded",o);return}
@@ -1420,7 +1424,7 @@ function unitPanel(k){const u=UNITS[k];
    <div class="arc-spec"><h3>Fiche technique · Westar-M5</h3><dl>${[["Type","Fusil blaster de précision"],["Dotation","ARC Alpha"],["Portée","Moyenne à longue"],["Modes de tir","Coup par coup · rafale"],["Atouts","Précision, fiabilité, modularité"]].map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join("")}</dl>
    <h3>Tenue ARC</h3><ul class="arc-kit">${["Casque avec télémètre","Épaulière de commandement","Kama de protection","Ceinture utilitaire","Marquages bleus ARC Alpha"].map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`}
  else if(k==="direction"){const nR=DATA.filter(d=>d.restricted).length;const ar=svg('<path d="M5 12h14M13 6l6 6-6 6"/>');
-  const qa=CAN?[["#/~equipe","Équipe et accès","Comptes, unités et rôles"],["@signup","Créer un compte","Nouveau membre"],["#/~donnees","Données BOS","Terminal et dossiers"],["#/~logs","Journal","Toute l'activité du site"],["@newpage","Nouvelle page","Ajouter un règlement"],["#/~fichiers","Fichiers déposés","Pièces jointes"]]
+  const qa=CAN?[["#/~equipe","Équipe et accès","Comptes, unités et rôles"],["#/~donnees","Données BOS","Terminal et dossiers"],["#/~logs","Journal","Toute l'activité du site"],["@newpage","Nouvelle page","Ajouter un règlement"],["#/~fichiers","Fichiers déposés","Pièces jointes"]]
    :[["#/~donnees","Données BOS","Terminal et dossiers"],["#/~fichiers","Fichiers déposés","Pièces jointes"]];
   body=head("Ton espace · Direction","Bureau de la Direction","Pilotage de la B.O.S : chiffres clés, accès rapides et dernière activité.",CAN?"Commandement":"Lecture intégrale")+
   `<div class="am-st dir-st"><div><b>${Object.keys(store).length}</b>pages</div><div><b>${DATA.length}</b>données</div><div><b>${nR}</b>restreintes</div><div><b>${FILES.length}</b>fichiers</div></div>
@@ -1610,9 +1614,26 @@ function closeModal(){if($("lgm").dataset.lock)return;$("lgm").classList.remove(
 $("lgm").addEventListener("mousedown",e=>{if(e.target.id==="lgm")closeModal()});
 function showAccount(){openModal(`<div class="sk">Connecté</div><h2 id="lgt">${esc(SESSION.display)}</h2><p class="mtxt">Identifiant : <b>${esc(SESSION.username)}</b><br>Rôle : <b>${roleLabel(SESSION)}</b><br>Unité${unitsOf(SESSION).length>1?"s":""} : ${unitsOf(SESSION).map(k=>`<span class="uline" style="${uvars(UNITS[k])}"><img src="${IMG[UNITS[k].logo]}" alt=""><b>${UNITS[k].n}</b></span>`).join(" ")}</p><div class="mact"><button class="b" id="lgx" type="button">Fermer</button><button class="b p" id="lgout" type="button">Se déconnecter</button></div>`)}
 function openLogin(){if(!ONLINE){toast("Site pas encore relié à sa base de données");return}
- openModal(`<form id="lgf" autocomplete="on"><div class="sk">Accès B.O.S</div><h2 id="lgt">Connexion</h2><label class="fld">Nom d'utilisateur<input id="lgu" name="username" autocomplete="username" required></label><label class="fld">Mot de passe<input id="lgp" name="password" type="password" autocomplete="current-password" required></label><p class="merr" id="lgerr" aria-live="polite"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Se connecter</button></div><p class="mfoot">Pas encore de compte ? Demande-le à un admin de la B.O.S : il te donnera ton nom d'utilisateur et ton mot de passe.</p></form>`)}
+ openModal(`<div><div class="sk">Accès B.O.S</div><h2 id="lgt">Connexion</h2><p class="mtxt">Connecte-toi avec ton compte Discord. L'accès dépend de ton grade sur le serveur <b>CloneWarsRP</b> : tu verras les pages de ton unité.</p><p class="merr" id="lgerr" aria-live="polite">${esc(LOGIN_ERR)}</p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p dsc" id="lgdc" type="button">${DSC_ICO}Se connecter avec Discord</button></div><p class="mfoot">Aucun mot de passe à retenir. Si ton grade change sur Discord, tes accès changent à ta prochaine connexion.</p></div>`);LOGIN_ERR=""}
+/* ---------- Connexion Discord ---------- */
+const DSC_ICO=svg('<path d="M19.3 5.3A17 17 0 0 0 15 4l-.6 1.2a15.7 15.7 0 0 0-4.8 0L9 4a17 17 0 0 0-4.3 1.3C2 9.4 1.3 13.4 1.6 17.3A17 17 0 0 0 6.9 20l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12 12 0 0 0 10.6 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.3-2.7c.4-4.5-.7-8.5-3.1-12Z"/><circle cx="9" cy="13" r="1.3"/><circle cx="15" cy="13" r="1.3"/>',' class="dico"');
+let LOGIN_ERR="";
+const REDIR=location.origin+location.pathname;
+function discordStart(){const id=String(CFG.discord||"");if(!/^\d{15,22}$/.test(id)){$("lgerr").textContent="Connexion Discord pas encore configurée (ID de l'application manquant dans config.js).";return}
+ const st=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,"0")).join("");
+ try{sessionStorage.setItem("bos-oauth",JSON.stringify({st,back:location.hash||"#/"}))}catch(e){}
+ location.href="https://discord.com/oauth2/authorize?"+new URLSearchParams({client_id:id,response_type:"code",redirect_uri:REDIR,scope:"identify guilds.members.read",state:st,prompt:"none"})}
+async function discordReturn(){const q=new URLSearchParams(location.search);if(!q.has("code")&&!q.has("error"))return false;
+ let saved={};try{saved=JSON.parse(sessionStorage.getItem("bos-oauth")||"{}");sessionStorage.removeItem("bos-oauth")}catch(e){}
+ history.replaceState(null,"",REDIR+(saved.back||"#/"));
+ if(q.has("error")){LOGIN_ERR="Connexion Discord annulée.";openLogin();return true}
+ if(!saved.st||saved.st!==q.get("state")){LOGIN_ERR="La connexion a expiré, réessaie.";openLogin();return true}
+ toast("Vérification de ton grade sur Discord…",30000);let r;
+ try{r=await readJSON(await fetch(CFG.url+"/functions/v1/discord-auth",{method:"POST",headers:H({"Content-Type":"application/json"}),body:JSON.stringify({code:q.get("code"),redirect_uri:REDIR})}))}
+ catch(er){$("toast").classList.remove("on");LOGIN_ERR=/fetch/i.test(er.message)?"Impossible de joindre le serveur.":er.message;openLogin();return true}
+ $("toast").classList.remove("on");SESSION=r;saveSess();PREVIEW=false;LOADED=false;applyMode();await loadData();applyMode();toast("Connecté : "+r.display+" ("+roleLabel(r)+")");return true}
 function roleSelect(id,cur){return OWNER?`<label class="fld">Rôle<select ${id?`id="${id}"`:'name="r"'}><option value="membre"${cur!=="admin"?" selected":""}>Membre (lecture)</option><option value="admin"${cur==="admin"?" selected":""}>Admin (peut modifier)</option></select></label>`:""}
-function openSignup(){if(!MANAGER())return;
+function openSignup(){return;
  openModal(`<form id="suf"><div class="sk">Nouveau membre</div><h2 id="lgt">Créer un compte</h2><label class="fld">Nom affiché<input id="sun" placeholder="Ex. Troxi" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="suu" placeholder="Ex. troxi" required maxlength="30" autocomplete="off"></label><label class="fld">Mot de passe<input id="sup" type="text" placeholder="6 caractères minimum" required minlength="6" autocomplete="new-password"></label><div class="fld">Unités${unitPicker("suunit","bos")}</div>${OBSNOTE}${roleSelect("sur","membre")}<p class="mfoot" style="margin:4px 0 8px;padding:0;border:0">Envoie ensuite le nom d'utilisateur et le mot de passe à la personne, en message privé.</p><p class="merr" id="suerr" aria-live="polite"></p><div class="mact"><button class="b" id="lgx" type="button">Annuler</button><button class="b p" type="submit">Créer le compte</button></div></form>`);$("lgbox").classList.add("wide")}
 function openSetup(){$("lgm").dataset.lock="1";
  openModal(`<form id="owf"><div class="sk">Première mise en route</div><h2 id="lgt">Compte propriétaire</h2><p class="mtxt">Aucun compte n'existe encore. Crée le tien : ce sera le compte <b>propriétaire</b>, le seul qui peut nommer des admins.</p><label class="fld">Nom affiché<input id="own" placeholder="Ex. Sacha" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="owu" placeholder="Ex. sacha" required maxlength="30" autocomplete="username"></label><label class="fld">Mot de passe<input id="owp" type="password" required minlength="6" autocomplete="new-password"></label><p class="merr" id="owerr" aria-live="polite"></p><div class="mact"><button class="b p" type="submit">Créer mon compte</button></div></form>`)}
@@ -1636,12 +1657,12 @@ $("lgbox").addEventListener("submit",async e=>{const f=e.target;e.preventDefault
   if(ok){closeModal();if(cur==="~equipe")loadTeam()}}
  else if(f.id==="npf"){const fo=$("npd").value,n=$("npn").value.trim().replace(/\//g,"-");if(!n)return;closeModal();await createPage((fo?fo+"/":"")+n)}
  }finally{busy=false}});
-$("lgbox").addEventListener("click",async e=>{if(e.target.id==="lgx")closeModal();else if(e.target.id==="lgout"){const t=tok();lockOut();closeModal();if(location.hash&&location.hash!=="#/")location.hash="#/";applyMode();toast("Déconnecté");try{await API.rpc("bos_logout",{p_token:t})}catch(er){}}});
+$("lgbox").addEventListener("click",async e=>{if(e.target.id==="lgx")closeModal();else if(e.target.closest("#lgdc"))discordStart();else if(e.target.id==="lgout"){const t=tok();lockOut();closeModal();if(location.hash&&location.hash!=="#/")location.hash="#/";applyMode();toast("Déconnecté");try{await API.rpc("bos_logout",{p_token:t})}catch(er){}}});
 let EDITING=null,TEAM_ERR="";
 const canTouch=a=>OWNER?a.role!=="owner"||a.id===SESSION.id:(MANAGER()&&(a.role==="membre"||a.id===SESSION.id));
 async function loadTeam(){if(!MANAGER()){renderTeam();return}const r=await API.rpc("bos_list_accounts",{p_token:tok()}).catch(e=>{TEAM_ERR=e.message;return null});if(r){ACCOUNTS=r;TEAM_ERR=""}renderTeam()}
 function renderTeam(){const el=$("team");if(!el)return;
- const how=`<div class="how"><div><em>1</em><p><b>Créer le compte</b>Un admin crée un nom d'utilisateur et un mot de passe pour la personne, ici ou avec le bouton <b>Créer un compte</b>. Seul le propriétaire choisit qui est <b>Admin</b>.</p></div><div><em>2</em><p><b>Envoyer les identifiants</b>Envoie-les-lui en message privé, sur Discord par exemple. Ne les poste jamais dans un salon public.</p></div><div><em>3</em><p><b>Se connecter</b>La personne clique sur <b>Connexion</b> en haut à gauche. Si elle perd ses accès, un admin change son identifiant ou son mot de passe ici.</p></div></div>`;
+ const how=`<div class="how"><div><em>1</em><p><b>Grade sur Discord</b>Les accès viennent des rôles du serveur CloneWarsRP : Amirauté et Direction voient tout, chaque unité voit sa page.</p></div><div><em>2</em><p><b>Connexion Discord</b>La personne clique sur <b>Connexion Discord</b>. Son compte est créé automatiquement à la première connexion.</p></div><div><em>3</em><p><b>Changer un accès</b>Donne ou retire le rôle sur Discord. Le changement s'applique à sa prochaine connexion (au plus tard sous 24 h).</p></div></div>`;
  if(!ONLINE){el.innerHTML=`<p class="tnote" style="margin:0 0 14px">Le site n'est pas encore relié à sa base de données.</p>${how}`;return}
  if(!MANAGER()){el.innerHTML=`<div class="fh"><div><div class="sk">Accès</div><h2>Réservé aux admins</h2></div></div><p class="tnote" style="margin:0 0 14px">Connecte-toi avec un compte admin pour gérer les utilisateurs.</p>${how}`;return}
  const editForm=a=>`<form class="newacc edacc" data-edit="${esc(a.id)}"><div class="fld nunit">Unités${unitPicker("edunit"+a.id.slice(0,8),unitsOf(a))}</div>${OBSNOTE}<label class="fld">Nom affiché<input name="n" value="${esc(a.display)}" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input name="u" value="${esc(a.username)}" required maxlength="30" autocomplete="off"></label><label class="fld">Nouveau mot de passe<input name="p" type="text" placeholder="Laisser vide pour ne pas changer" autocomplete="new-password"></label>${a.role!=="owner"&&OWNER?roleSelect("",a.role):`<label class="fld">Rôle<input value="${ROLES[a.role]}" disabled></label>`}<div class="eact"><button class="b" type="button" data-cancel>Annuler</button><button class="b p" type="submit">Enregistrer</button></div></form>`;
@@ -1649,9 +1670,6 @@ function renderTeam(){const el=$("team");if(!el)return;
  const secs=UORDER.map(k=>{const u=UNITS[k],l=ACCOUNTS.filter(a=>unitsOf(a).includes(k));
   return`<section class="usec" style="${uvars(u)}"><div class="ush"><img src="${IMG[u.logo]}" alt=""><div><b>${u.n}</b><small>${esc(u.full)}${OBS(k)?" · voit tout, ne modifie rien":k==="direction"?" · voit tout":""}</small></div><em>${l.length}</em></div>${l.length?`<div class="flist">${l.map(a=>row(a,k)).join("")}</div>`:`<p class="tnote">Aucun compte dans cette unité.</p>`}</section>`}).join("");
  el.innerHTML=`${TEAM_ERR?`<p class="merr">${esc(TEAM_ERR)}</p>`:""}<div class="fh"><div><div class="sk">Accès</div><h2>Comptes par unité <em>${ACCOUNTS.length}</em></h2></div></div>${secs}
-  <div class="fh" style="margin-top:22px"><div><div class="sk">Nouveau</div><h2>Créer un utilisateur</h2></div></div>
-  <form class="newacc" id="naf"><div class="fld nunit">Unités${unitPicker("naunit","bos")}</div>${OBSNOTE}<label class="fld">Nom affiché<input id="nan" placeholder="Ex. Troxi" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input id="nau" placeholder="Ex. troxi" required maxlength="30" autocomplete="off"></label><label class="fld">Mot de passe<input id="nap" type="text" placeholder="6 caractères minimum" required minlength="6" autocomplete="new-password"></label>${OWNER?roleSelect("nar","membre"):`<label class="fld">Rôle<input value="Membre" disabled></label>`}<button class="b p" type="submit">Créer</button></form>
-  <p class="tnote">${OWNER?"Tu es le seul à pouvoir nommer ou retirer un admin.":"Seul le propriétaire du site peut nommer un admin. Tu peux créer des membres, et modifier les membres et ton propre compte."} Les mots de passe sont chiffrés sur le serveur : personne ne peut les lire, même pas les admins.</p>
   <div class="fh" style="margin-top:26px"><div><div class="sk">Mode d'emploi</div><h2>Comment ça marche</h2></div></div>${how}`;
  const f=el.querySelector(".edacc input");if(f)f.focus()}
 $("view").addEventListener("submit",async e=>{const f=e.target;
@@ -1735,9 +1753,9 @@ try{SESSION=JSON.parse(localStorage.getItem("bos-session")||"null")}catch(e){}
 route();applyMode();
 (async function boot(){
  if(!ONLINE){notice(BADKEY?"Attention : config.js contient la clé SECRÈTE de Supabase. Remplace-la tout de suite par la clé publique (publishable / anon).":"Ce site n'est pas encore relié à sa base de données : le contenu est affiché en lecture seule.");return}
+ if(await discordReturn())return;
  if(SESSION&&SESSION.token){try{const me=await API.rpc("bos_me",{p_token:SESSION.token});if(me){Object.assign(SESSION,me);saveSess();await loadData()}else{lockOut();toast("Session expirée : reconnecte-toi",3500)}}catch(e){notice("Impossible de joindre la base de données pour l'instant. Réessaie dans un moment.")}}
  if(!edit){applyMode();if(cur==="~equipe")loadTeam();if(cur==="~logs")loadLogs()}
- try{const st=await API.rpc("bos_status");if(st&&st.has_owner===false)openSetup()}catch(e){}
 })();
 </script>
 </body>
