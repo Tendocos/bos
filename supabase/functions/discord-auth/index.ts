@@ -33,7 +33,9 @@ const DEFAULTS = {
     "1290398439519293552": "omega",     // Omega
     "1556061844542849065": "bb",        // Bad Batch
     "1054892340294205571": "bos",       // B.O.S (toutes les spés) → pages générales B.O.S
-  } as Record<string, string>,
+    "1305973807462355026": ["omega", "bb"], // Gérant d'escouade (RC + Bad Batch)
+    "946321599542485022": "arc",        // CMDM ARC Alpha
+  } as Record<string, string | string[]>,
   ADMIN_ROLES: ["1112055944990433351", "843142628661002250"],
   OWNER_IDS: ["1161516903752278016"],
 };
@@ -46,7 +48,7 @@ const OWNER_IDS = list("DISCORD_OWNER_IDS").length ? list("DISCORD_OWNER_IDS") :
 const SITE_URLS = list("SITE_URLS").length ? list("SITE_URLS") : ["https://tendocos.github.io/bos/"];
 const UNIT_KEYS = ["direction", "amiraute", "brs", "arc", "omega", "bb", "bos"];
 
-let ROLE_MAP: Record<string, string> = DEFAULTS.ROLE_MAP;
+let ROLE_MAP: Record<string, string | string[]> = DEFAULTS.ROLE_MAP;
 try { if (env("DISCORD_ROLE_MAP")) ROLE_MAP = JSON.parse(env("DISCORD_ROLE_MAP")); } catch { /* garde les réglages par défaut */ }
 
 const origins = [...new Set(SITE_URLS.map((u) => new URL(u).origin))];
@@ -101,7 +103,8 @@ Deno.serve(async (req) => {
   const roles: string[] = member.roles ?? [];
 
   // 3. Rôles Discord → unités du site
-  const units = UNIT_KEYS.filter((k) => roles.some((r) => ROLE_MAP[r] === k));
+  const unitsOf = (r: string) => ([] as string[]).concat(ROLE_MAP[r] ?? []);
+  const units = UNIT_KEYS.filter((k) => roles.some((r) => unitsOf(r).includes(k)));
   const owner = OWNER_IDS.includes(user.id);
   const db = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), { auth: { persistSession: false } });
   if (!units.length && !owner) {

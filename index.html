@@ -65,6 +65,7 @@ nav#nav{display:flex;align-items:center;gap:2px;margin-left:18px}
 .menu{position:absolute;top:calc(100% + 8px);left:0;min-width:300px;padding:8px;border:1px solid var(--ln);border-radius:12px;background:var(--pn);
   box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .16s,transform .16s,visibility .16s}
 .menu.open{opacity:1;visibility:visible;transform:none}
+.menu::before{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
 .dd:nth-last-child(-n+2) .menu{left:auto;right:0}
 .menu .mt{padding:6px 10px 8px;font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);border-bottom:1px solid var(--ln);margin-bottom:6px}
 .mi{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:8px;background:none;text-align:left;cursor:pointer;text-decoration:none;color:var(--tx);font-size:15px}
@@ -1165,8 +1166,15 @@ function closeMenus(except){document.querySelectorAll(".menu.open").forEach(m=>{
 $("nav").addEventListener("click",e=>{const b=e.target.closest(".dd>.nb");if(b){const m=b.nextElementSibling,o=hoverable.matches?true:!m.classList.contains("open");closeMenus(m);m.classList.toggle("open",o);b.setAttribute("aria-expanded",o);return}
  if(e.target.closest("a"))closeAll()});
 const hoverable=matchMedia("(hover:hover) and (min-width:1301px)");
-$("nav").addEventListener("mouseover",e=>{if(!hoverable.matches)return;const d=e.target.closest(".dd");if(!d)return;const m=d.querySelector(".menu");if(!m.classList.contains("open")){closeMenus(m);m.classList.add("open");d.firstElementChild.setAttribute("aria-expanded","true")}});
-$("nav").addEventListener("mouseleave",()=>{if(hoverable.matches)closeMenus()});
+/* Menus au survol : petit délai à la fermeture et au changement de menu, pour avoir le temps de choisir */
+let menuCloseT=0,menuOpenT=0;
+function openDD(d){const m=d.querySelector(".menu");if(!m||m.classList.contains("open"))return;closeMenus(m);m.classList.add("open");d.firstElementChild.setAttribute("aria-expanded","true")}
+$("nav").addEventListener("mouseover",e=>{if(!hoverable.matches)return;clearTimeout(menuCloseT);const d=e.target.closest(".dd");clearTimeout(menuOpenT);if(!d)return;
+ if(d.contains(e.relatedTarget))return;
+ const anyOpen=document.querySelector("#nav .menu.open");
+ if(!anyOpen)openDD(d);else if(!d.querySelector(".menu.open"))menuOpenT=setTimeout(()=>openDD(d),220)});
+$("nav").addEventListener("mouseleave",()=>{if(!hoverable.matches)return;clearTimeout(menuOpenT);menuCloseT=setTimeout(closeMenus,450)});
+$("nav").addEventListener("mouseenter",()=>clearTimeout(menuCloseT));
 function closeAll(){closeMenus();$("nav").classList.remove("open");$("burger").setAttribute("aria-expanded","false");$("res").classList.remove("open");document.body.style.overflow=""}
 $("burger").onclick=()=>{const o=!$("nav").classList.contains("open");closeMenus();$("nav").classList.toggle("open",o);$("burger").setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""};
 $("tbtn").onclick=e=>{e.stopPropagation();const m=$("tmenu"),o=!m.classList.contains("open");closeMenus(m);m.classList.toggle("open",o);$("tbtn").setAttribute("aria-expanded",o)};
