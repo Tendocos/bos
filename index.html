@@ -1330,11 +1330,11 @@ const UNITS={
  bb:{n:"Bad Batch",full:"Clone Force 99",c:"#ff7a1a",t:"#ffa45c",logo:"lc",k:"cf"}};
 const UORDER=["direction","bos","amiraute","brs","arc","omega","bb"];
 const PRIO=["direction","amiraute","brs","arc","omega","bb","bos"];
-const OBS=u=>u==="amiraute";
+const OBS=u=>u==="amiraute"||u==="brs";
 const unitsOf=a=>{const l=a&&Array.isArray(a.units)&&a.units.length?a.units:[(a&&a.unit)||"bos"];const r=PRIO.filter(k=>l.includes(k));return r.length?r:["bos"]};
 const unitOf=a=>UNITS[unitsOf(a)[0]]||UNITS.bos;
 const READALL=a=>unitsOf(a).some(k=>k==="direction"||OBS(k));
-const LOCKER=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).some(k=>k==="direction"||k==="amiraute"));
+const LOCKER=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).some(k=>k==="direction"||k==="amiraute"||k==="brs"));
 const SEEALL=()=>LOCKER();
 const roleLabel=a=>a.role==="owner"?"Propriétaire":a.role==="admin"?"Admin":unitsOf(a).some(OBS)?"Lecture intégrale":unitsOf(a).includes("direction")?"Direction":"Membre";
 const uvars=u=>`--uc:${u.c};--ut:${u.t}`;
@@ -1662,7 +1662,7 @@ let EDITING=null,TEAM_ERR="";
 const canTouch=a=>OWNER?a.role!=="owner"||a.id===SESSION.id:(MANAGER()&&(a.role==="membre"||a.id===SESSION.id));
 async function loadTeam(){if(!MANAGER()){renderTeam();return}const r=await API.rpc("bos_list_accounts",{p_token:tok()}).catch(e=>{TEAM_ERR=e.message;return null});if(r){ACCOUNTS=r;TEAM_ERR=""}renderTeam()}
 function renderTeam(){const el=$("team");if(!el)return;
- const how=`<div class="how"><div><em>1</em><p><b>Grade sur Discord</b>Les accès viennent des rôles du serveur CloneWarsRP : Amirauté et Direction voient tout, chaque unité voit sa page.</p></div><div><em>2</em><p><b>Connexion Discord</b>La personne clique sur <b>Connexion Discord</b>. Son compte est créé automatiquement à la première connexion.</p></div><div><em>3</em><p><b>Changer un accès</b>Donne ou retire le rôle sur Discord. Le changement s'applique à sa prochaine connexion (au plus tard sous 24 h).</p></div></div>`;
+ const how=`<div class="how"><div><em>1</em><p><b>Grade sur Discord</b>Les accès viennent des rôles du serveur CloneWarsRP : Amirauté, Direction et B.R.S voient tout, chaque unité voit sa page.</p></div><div><em>2</em><p><b>Connexion Discord</b>La personne clique sur <b>Connexion Discord</b>. Son compte est créé automatiquement à la première connexion.</p></div><div><em>3</em><p><b>Changer un accès</b>Donne ou retire le rôle sur Discord. Le changement s'applique à sa prochaine connexion (au plus tard sous 24 h).</p></div></div>`;
  if(!ONLINE){el.innerHTML=`<p class="tnote" style="margin:0 0 14px">Le site n'est pas encore relié à sa base de données.</p>${how}`;return}
  if(!MANAGER()){el.innerHTML=`<div class="fh"><div><div class="sk">Accès</div><h2>Réservé aux admins</h2></div></div><p class="tnote" style="margin:0 0 14px">Connecte-toi avec un compte admin pour gérer les utilisateurs.</p>${how}`;return}
  const editForm=a=>`<form class="newacc edacc" data-edit="${esc(a.id)}"><div class="fld nunit">Unités${unitPicker("edunit"+a.id.slice(0,8),unitsOf(a))}</div>${OBSNOTE}<label class="fld">Nom affiché<input name="n" value="${esc(a.display)}" required maxlength="40"></label><label class="fld">Nom d'utilisateur<input name="u" value="${esc(a.username)}" required maxlength="30" autocomplete="off"></label><label class="fld">Nouveau mot de passe<input name="p" type="text" placeholder="Laisser vide pour ne pas changer" autocomplete="new-password"></label>${a.role!=="owner"&&OWNER?roleSelect("",a.role):`<label class="fld">Rôle<input value="${ROLES[a.role]}" disabled></label>`}<div class="eact"><button class="b" type="button" data-cancel>Annuler</button><button class="b p" type="submit">Enregistrer</button></div></form>`;

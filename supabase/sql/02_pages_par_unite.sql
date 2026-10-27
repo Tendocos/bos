@@ -1,5 +1,5 @@
 -- Chaque unité ne reçoit que ses pages (le filtrage se fait sur le serveur, plus seulement à l'affichage).
--- Voient tout : propriétaire, Direction, Amirauté. La B.R.S ne voit plus que ses pages.
+-- Voient tout : propriétaire, Direction, Amirauté et B.R.S (voir 03_brs_voit_tout.sql).
 
 create or replace function public.bos__seeall(p_role text, p_units text[])
 returns boolean language sql immutable as $$
