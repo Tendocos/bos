@@ -1015,6 +1015,12 @@ a.dl-i:hover b{color:var(--ut)}
 .tro b{display:block;color:var(--ut);font:700 14px Rajdhani,sans-serif;letter-spacing:.12em;text-transform:uppercase}.tro small{color:var(--mu);font-size:12.5px}
 .tro .b{height:30px;font-size:12px}
 @media(max-width:1000px){.hudw{grid-template-columns:1fr}}
+/* ---------- Archives des données ---------- */
+.aico{width:15px;height:15px;vertical-align:-2px}
+.dch.arch,.mi.arch{opacity:.85;border-top:1px dashed #2a2a31;margin-top:4px;padding-top:6px}
+.dch.arch b{color:#b9bcc6}
+.tsec.arch{color:#b9bcc6!important;border-color:#3a3a42!important;letter-spacing:.12em}
+.anote{margin:6px 0 0;font-size:13px;color:#8b8d98}
 /* ---------- Bouton Discord ---------- */
 .b.dsc{display:inline-flex;align-items:center;gap:8px;background:#5865f2;border-color:#5865f2;color:#fff}
 .b.dsc:hover{background:#4752c4;border-color:#4752c4;color:#fff}
@@ -1147,7 +1153,7 @@ function nav(){if(!SESSION){$("nav").innerHTML="";return}let h=`<a class="nb${cu
    g.items.map(p=>`<a class="mi${p===cur?" on":""}" href="${href(p)}" style="--u:${U[HK(p)].c}"><img src="${logoFor(p)}" alt=""><span>${esc(p.slice(g.folder.length+1))}</span></a>`).join("")+"</div></div>"}
  h+=`<div class="dd ddata"><button class="nb nbdata${cur.startsWith("~donnees")?" on":""}" aria-expanded="false" aria-haspopup="true">${NI(NICO.term)}Données BOS${CHEV}</button><div class="menu"><div class="mt">Données BOS · canaux</div>`+
   `<a class="mi${cur==="~donnees"?" on":""}" href="#/~donnees" style="--u:#2bff88"><span class="mic dic">${svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/>')}</span><span><b>Toutes les données</b><small>${DATA.length} donnée${DATA.length>1?"s":""}</small></span></a>`+
-  SECTIONS.map(s=>{const n=DATA.filter(d=>d.section_id===s.id),r=n.filter(d=>d.restricted).length;return`<a class="mi${cur==="~donnees/"+s.id?" on":""}" href="#/~donnees/${esc(s.id)}" style="--u:#2bff88"><span class="mic dic">#</span><span><b>${esc(s.name)}</b><small>${n.length} donnée${n.length>1?"s":""}${r?` · <em>${r} restreinte${r>1?"s":""}</em>`:""}</small></span></a>`}).join("")+
+  SECTIONS.map(s=>{const n=DATA.filter(d=>d.section_id===s.id),r=n.filter(d=>d.restricted).length;return`<a class="mi${cur==="~donnees/"+s.id?" on":""}${s.is_archive?" arch":""}" href="#/~donnees/${esc(s.id)}" style="--u:${s.is_archive?"#8b8d98":"#2bff88"}"><span class="mic dic">${s.is_archive?ARCH_ICO():"#"}</span><span><b>${esc(s.name)}</b><small>${n.length} donnée${n.length>1?"s":""}${r?` · <em>${r} restreinte${r>1?"s":""}</em>`:""}</small></span></a>`}).join("")+
   (CAN?`<button class="mi" data-snew><span class="mic dic">${svg('<path d="M12 5v14M5 12h14"/>')}</span><span><b>Nouvelle section</b><small>Ajouter un canal</small></span></button>`:"")+`</div></div>`;
  if(CAN){const it=[["~logs","Journal d'activité","Tout ce qui a été modifié, et par qui"],["~equipe","Équipe et accès","Qui a accès, par unité"],["~fichiers","Fichiers déposés","Tous les fichiers du site"]];
   h+=`<div class="dd set"><button class="nb${cur.startsWith("~")?" on":""}" aria-expanded="false" aria-haspopup="true">${svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',' class="gear ni"')}Réglages${CHEV}</button><div class="menu"><div class="mt">Réglages · admins</div>`+
@@ -1470,6 +1476,10 @@ let SECTIONS=[],DATA=[],PEND=[];const UNLOCKED=new Set();let DEDIT=null;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const HEX="0123456789ABCDEF";
 const rhex=n=>{let s="";for(let i=0;i<n;i++)s+=HEX[Math.random()*16|0];return s};
+const ISARCH=id=>{const s=SECTIONS.find(x=>x.id===id);return!!(s&&s.is_archive)};
+const ACTIVE=()=>DATA.filter(d=>!ISARCH(d.section_id));
+const ARCH_ICO=()=>svg('<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v11h14V9M10 13h4"/>',' class="aico"');
+const addDays=(t,n)=>t+n*864e5;
 const secName=id=>{const s=SECTIONS.find(x=>x.id===id);return s?s.name:"Sans section"};
 const dataOf=id=>DATA.find(d=>d.id===id);
 const dLabel=p=>{const d=dataOf(p.slice(6));return d?"Données BOS › "+(d.title||"Donnée classifiée"):"Données BOS › donnée supprimée"};
@@ -1505,7 +1515,7 @@ function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a
  const ic=p=>svg(p);
  const act=CAN?`<div class="tact">${!locked?`<label title="Ajouter des captures">${ic('<path d="M12 5v14M5 12h14"/>')}<input type="file" multiple hidden data-dup="${esc(d.id)}"></label>`:""}${SEEALL()&&d.restricted&&!locked?`<button type="button" data-relock="${esc(d.id)}" title="Reverrouiller">${ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}</button>`:""}${d.restricted&&!SEEALL()?"":`<button type="button" class="tl" data-dedit="${esc(d.id)}" title="Modifier">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}<span>Modifier</span></button>`}<button type="button" class="tl td" data-ddel="${esc(d.id)}" title="Supprimer">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}<span>Supprimer</span></button></div>`:"";
  const lk=LOCKER()?`<button type="button" class="tlock${d.restricted?" on":""}" data-lock="${esc(d.id)}" title="${d.restricted?"Déverrouiller":"Verrouiller"} (Direction, Amirauté, B.R.S)">${ic(d.restricted?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>':'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>')}<span>${d.restricted?"Lever le verrou":"Verrouiller"}</span></button>`:"";
- const meta=`${d.created_by?esc(d.created_by)+" · ":""}${fdate(Date.parse(d.created_at)||Date.now())}`;
+ const t0=Date.parse(d.created_at)||Date.now();const meta=`${d.created_by?esc(d.created_by)+" · ":""}${fdate(t0)}${ISARCH(d.section_id)?` · archivée le ${fdate(Date.parse(d.archived_at)||Date.now())}`:` · archivage le ${fdate(addDays(t0,30))}`}`;
  let body;
  if(locked){const fake=["MOT DE PASSE : "+rhex(14).toLowerCase(),"Code : "+rhex(4),"Cible : "+rhex(10),"Coordonnées : "+rhex(6)+"-"+rhex(4),"Rapport : "+rhex(22).toLowerCase(),"Contact : "+rhex(8)];
   body=`<div class="lblur" aria-hidden="true"><h3 class="tok">ACCÈS ACCORDÉ</h3><div class="ttl">${rhex(18)}</div>${fake.map(l=>`<div class="tl"><span class="k">${l.split(":")[0]} :</span><code>${l.split(":")[1]}</code></div>`).join("")}</div>
@@ -1513,22 +1523,22 @@ function termCard(d){const files=FILES.filter(f=>f.page==="~data/"+d.id).sort((a
    <div class="lmid"><div class="pad">${PADSVG}</div><b>DONNÉES VERROUILLÉES</b><span>${d.title?esc(d.title):"Donnée classifiée"}</span><small>Accès réservé · Direction · Amirauté · B.R.S</small><em class="lleft">${d.locked_until?`Se déverrouille dans <span data-until="${esc(d.id)}">${lockLeft(d)}</span>`:"Verrouillé jusqu'à nouvel ordre"}</em><button class="ldec${SEEALL()?" adm":""}" type="button" data-dec="${esc(d.id)}">${SEEALL()?"Déchiffrer":"Tenter l'accès"}</button></div>`}
  else body=`<h3 class="tok${d.restricted?" dec":""}">${d.restricted?"DONNÉES DÉCHIFFRÉES":"ACCÈS ACCORDÉ"}</h3><div class="ttl scr">${esc(d.title)}</div>${termLines(d.body)}${files.length?`<div class="tcaps">${fileBlock(files,false)}</div>`:""}`;
  return`<article class="term${locked?" lk":""}" data-did="${esc(d.id)}" style="--u:#2bff88">
-  <div class="tbar"><b>TERMINAL</b><span class="tsec">#${esc(secName(d.section_id))}</span>${st}${lk}${act}</div>
+  <div class="tbar"><b>TERMINAL</b><span class="tsec${ISARCH(d.section_id)?" arch":""}">${ISARCH(d.section_id)?"ARCHIVE":"#"+esc(secName(d.section_id))}</span>${st}${lk}${act}</div>
   <div class="ttabs"><span class="on">${locked?"Chiffré":"Piratage"}</span><span>Données${!locked&&files.length?" · "+files.length:""}</span></div>
   <div class="tbody">${body}</div>
   <div class="tfoot">${!locked&&(d.body||"").trim()?`<button class="tcopyall" type="button" data-copyall="${esc(d.id)}">Copier le contenu</button>`:""}<div class="tprompt">root@bos-terminal:~$<span class="in">${locked?"accès refusé : habilitation requise":meta}<span class="cur"></span></span></div></div>
  </article>`}
 function dataView(){const sid=cur.split("/")[1]||"";const sec=SECTIONS.find(s=>s.id===sid);
- const list=DATA.filter(d=>!sid||d.section_id===sid);const nR=list.filter(d=>d.restricted).length;
+ const isA=!!(sec&&sec.is_archive);const list=sid?DATA.filter(d=>d.section_id===sid):ACTIVE();const nR=list.filter(d=>d.restricted).length;
  const ic=p=>svg(p);
  const side=`<aside class="dsb"><div class="dsh"><span>// Canaux</span></div>
-  <a class="dch${!sid?" on":""}" href="#/~donnees"><span>#</span><b>toutes-les-données</b><em>${DATA.length}</em></a>
+  <a class="dch${!sid?" on":""}" href="#/~donnees"><span>#</span><b>toutes-les-données</b><em>${ACTIVE().length}</em></a>
   ${SECTIONS.map(s=>{const n=DATA.filter(d=>d.section_id===s.id),r=n.filter(d=>d.restricted).length;
-   return`<a class="dch${sid===s.id?" on":""}" href="#/~donnees/${esc(s.id)}"><span>#</span><b>${esc(s.name)}</b>${CAN?`<span class="dsa"><button type="button" data-srn="${esc(s.id)}" title="Renommer">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}</button><button type="button" data-sdel="${esc(s.id)}" title="Supprimer la section">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></span>`:""}${r?`<em class="lkn" title="${r} restreinte(s)">${r}🔒</em>`:""}<em>${n.length}</em></a>`}).join("")}
+   return`<a class="dch${sid===s.id?" on":""}${s.is_archive?" arch":""}" href="#/~donnees/${esc(s.id)}"><span>${s.is_archive?ARCH_ICO():"#"}</span><b>${esc(s.name)}</b>${CAN&&!s.is_archive?`<span class="dsa"><button type="button" data-srn="${esc(s.id)}" title="Renommer">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}</button><button type="button" data-sdel="${esc(s.id)}" title="Supprimer la section">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}</button></span>`:""}${r?`<em class="lkn" title="${r} restreinte(s)">${r}🔒</em>`:""}<em>${n.length}</em></a>`}).join("")}
   ${CAN?`<button class="dadd" type="button" data-snew>+ Nouvelle section</button>`:""}</aside>`;
  const head=`<div class="dhead"><div><div class="k">// Données B.O.S${sec?" › canal":""}</div><h2>${sec?`<span>#</span>${esc(sec.name)}`:`Données <span>BOS</span>`}</h2></div>
   <div class="st"><div><b>${list.length}</b>donnée${list.length>1?"s":""}</div><div class="rr"><b>${nR}</b>restreinte${nR>1?"s":""}</div></div>
-  ${CAN&&sec?`<div class="dsact"><button type="button" data-srn="${esc(sec.id)}">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}Renommer</button><button type="button" data-sdel="${esc(sec.id)}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}Supprimer</button></div>`:""}${CAN&&SECTIONS.length?`<button class="dnew" type="button" data-dnew>${ic('<path d="M12 5v14M5 12h14"/>')}Ajouter des données</button>`:""}</div>`;
+  ${isA?`<p class="anote">Les données partent ici automatiquement un mois après leur création.</p>`:""}${CAN&&sec&&!isA?`<div class="dsact"><button type="button" data-srn="${esc(sec.id)}">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>')}Renommer</button><button type="button" data-sdel="${esc(sec.id)}">${ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>')}Supprimer</button></div>`:""}${CAN&&!isA&&SECTIONS.some(x=>!x.is_archive)?`<button class="dnew" type="button" data-dnew>${ic('<path d="M12 5v14M5 12h14"/>')}Ajouter des données</button>`:""}</div>`;
  const feed=list.length?`<div class="dfeed">${list.map(termCard).join("")}</div>`:`<div class="dempty">&gt; ${SECTIONS.length?"aucune donnée dans ce canal pour l'instant":"aucune section : crée-en une avec Données BOS › Nouvelle section"}${CAN&&SECTIONS.length?" · clique sur « Ajouter des données »":""}<i></i></div>`;
  return`<div class="bar"><div class="crumb"><a href="#/">Accueil</a><i>/</i>${sec?`<a href="#/~donnees">Données BOS</a><i>/</i><b>#${esc(sec.name)}</b>`:"<b>Données BOS</b>"}</div></div><div class="dw one fade"><div class="dmain">${head}${feed}</div></div>`}
 function scramble(root){const els=[...root.querySelectorAll(".scr")];const CH="!<>-_/[]{}=+*^?#01ABCDEF$%&";
@@ -1554,9 +1564,9 @@ async function hackSeq(card,d){if(HACKING.has(d.id))return;HACKING.add(d.id);
  const s=document.createElement("div");s.className="stamp g";s.textContent="ACCÈS AUTORISÉ";card.appendChild(s);await sleep(1100);
  UNLOCKED.add(d.id);HACKING.delete(d.id);
  const tmp=document.createElement("div");tmp.innerHTML=termCard(d);const nc=tmp.firstElementChild;nc.classList.add("fresh");card.replaceWith(nc);scramble(nc)}
-function openDataEditor(d){if(!CAN)return;DEDIT=d||null;PEND=[];const sid=d?d.section_id:(cur.split("/")[1]||(SECTIONS[0]&&SECTIONS[0].id));
+function openDataEditor(d){if(!CAN)return;DEDIT=d||null;PEND=[];const firstS=(SECTIONS.find(x=>!x.is_archive)||{}).id;let sid=d?d.section_id:(cur.split("/")[1]||firstS);if(!d&&ISARCH(sid))sid=firstS;
  openModal(`<form id="dtf"><div class="sk">Données BOS</div><h2 id="lgt">${d?"Modifier les données":"Nouvelles données"}</h2>
-  <label class="fld">Section<select id="dts">${SECTIONS.map(s=>`<option value="${esc(s.id)}"${s.id===sid?" selected":""}>#${esc(s.name)}</option>`).join("")}</select></label>
+  <label class="fld">Section<select id="dts">${SECTIONS.filter(s=>!s.is_archive||s.id===sid).map(s=>`<option value="${esc(s.id)}"${s.id===sid?" selected":""}>#${esc(s.name)}</option>`).join("")}</select></label>
   <label class="fld">Titre<input id="dtt" required maxlength="120" value="${d?esc(d.title||""):""}" placeholder="Ex. Piratage du terminal séparatiste, secteur 7"></label>
   <label class="fld">Contenu du terminal<textarea id="dtb" rows="4" spellcheck="false" placeholder="MOT DE PASSE : qiudjq...&#10;Code : 4471&#10;Notes libres...">${d?esc(d.body||""):""}</textarea></label>
   <div class="dtup"><label class="b">${svg('<path d="M12 5v14M5 12h14"/>')}<span>Ajouter des captures</span><input type="file" multiple hidden id="dtfile"></label><span>ou colle une capture d'écran avec Ctrl+V</span></div>
