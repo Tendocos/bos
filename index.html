@@ -1330,11 +1330,11 @@ const UNITS={
  bb:{n:"Bad Batch",full:"Clone Force 99",c:"#ff7a1a",t:"#ffa45c",logo:"lc",k:"cf"}};
 const UORDER=["direction","bos","amiraute","brs","arc","omega","bb"];
 const PRIO=["direction","amiraute","brs","arc","omega","bb","bos"];
-const OBS=u=>u==="amiraute"||u==="brs";
+const OBS=u=>u==="amiraute";
 const unitsOf=a=>{const l=a&&Array.isArray(a.units)&&a.units.length?a.units:[(a&&a.unit)||"bos"];const r=PRIO.filter(k=>l.includes(k));return r.length?r:["bos"]};
 const unitOf=a=>UNITS[unitsOf(a)[0]]||UNITS.bos;
 const READALL=a=>unitsOf(a).some(k=>k==="direction"||OBS(k));
-const LOCKER=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).some(k=>k==="direction"||k==="amiraute"||k==="brs"));
+const LOCKER=()=>!!SESSION&&(SESSION.role==="owner"||unitsOf(SESSION).some(k=>k==="direction"||k==="amiraute"));
 const SEEALL=()=>LOCKER();
 const roleLabel=a=>a.role==="owner"?"Propriétaire":a.role==="admin"?"Admin":unitsOf(a).some(OBS)?"Lecture intégrale":unitsOf(a).includes("direction")?"Direction":"Membre";
 const uvars=u=>`--uc:${u.c};--ut:${u.t}`;

@@ -20,16 +20,34 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 const env = (k: string, d = "") => (Deno.env.get(k) ?? d).trim();
 const list = (k: string) => env(k).split(",").map((s) => s.trim()).filter(Boolean);
 
-const CLIENT_ID = env("DISCORD_CLIENT_ID");
-const CLIENT_SECRET = env("DISCORD_CLIENT_SECRET");
-const GUILD_ID = env("DISCORD_GUILD_ID");
-const ADMIN_ROLES = list("DISCORD_ADMIN_ROLES");
-const OWNER_IDS = list("DISCORD_OWNER_IDS");
+// ---- Réglages du serveur CloneWarsRP (ces identifiants ne sont pas secrets) ----
+const DEFAULTS = {
+  CLIENT_ID: "1564645248380964966",
+  GUILD_ID: "733070665569140769",
+  ROLE_MAP: {
+    "820786836649279509": "amiraute",   // Amirauté          → voit tout
+    "1112055944990433351": "direction", // Direction         → voit tout, peut modifier
+    "843142628661002250": "direction",  // Directeur adjoint → voit tout, peut modifier
+    "1054864743048958004": "brs",       // B.R.S
+    "1054864224242913330": "arc",       // ARC Alpha
+    "1290398439519293552": "omega",     // Omega
+    "1556061844542849065": "bb",        // Bad Batch
+    "1054892340294205571": "bos",       // B.O.S (toutes les spés) → pages générales B.O.S
+  } as Record<string, string>,
+  ADMIN_ROLES: ["1112055944990433351", "843142628661002250"],
+  OWNER_IDS: ["1161516903752278016"],
+};
+
+const CLIENT_ID = env("DISCORD_CLIENT_ID", DEFAULTS.CLIENT_ID);
+const CLIENT_SECRET = env("DISCORD_CLIENT_SECRET"); // le seul vrai secret, rangé dans Supabase
+const GUILD_ID = env("DISCORD_GUILD_ID", DEFAULTS.GUILD_ID);
+const ADMIN_ROLES = list("DISCORD_ADMIN_ROLES").length ? list("DISCORD_ADMIN_ROLES") : DEFAULTS.ADMIN_ROLES;
+const OWNER_IDS = list("DISCORD_OWNER_IDS").length ? list("DISCORD_OWNER_IDS") : DEFAULTS.OWNER_IDS;
 const SITE_URLS = list("SITE_URLS").length ? list("SITE_URLS") : ["https://tendocos.github.io/bos/"];
 const UNIT_KEYS = ["direction", "amiraute", "brs", "arc", "omega", "bb", "bos"];
 
-let ROLE_MAP: Record<string, string> = {};
-try { ROLE_MAP = JSON.parse(env("DISCORD_ROLE_MAP", "{}")); } catch { ROLE_MAP = {}; }
+let ROLE_MAP: Record<string, string> = DEFAULTS.ROLE_MAP;
+try { if (env("DISCORD_ROLE_MAP")) ROLE_MAP = JSON.parse(env("DISCORD_ROLE_MAP")); } catch { /* garde les réglages par défaut */ }
 
 const origins = [...new Set(SITE_URLS.map((u) => new URL(u).origin))];
 function cors(req: Request) {
