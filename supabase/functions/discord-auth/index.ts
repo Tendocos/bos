@@ -103,14 +103,20 @@ Deno.serve(async (req) => {
   // 3. Rôles Discord → unités du site
   const units = UNIT_KEYS.filter((k) => roles.some((r) => ROLE_MAP[r] === k));
   const owner = OWNER_IDS.includes(user.id);
+  const db = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), { auth: { persistSession: false } });
   if (!units.length && !owner) {
+    // Note dans le Journal du site qui a été refusé et avec quels rôles, pour pouvoir les ajouter
+    await db.rpc("bos_discord_refused", {
+      p_display: String(member.nick || user.global_name || user.username || ""),
+      p_discord_id: String(user.id || ""),
+      p_roles: roles,
+    }).then(() => {}, () => {});
     return reply(req, { error: "Ton grade sur le serveur ne donne pas accès aux archives B.O.S.", code: "no_role" }, 403);
   }
   const role = owner ? "owner" : roles.some((r) => ADMIN_ROLES.includes(r)) ? "admin" : "membre";
   const display = String(member.nick || user.global_name || user.username || "Inconnu").slice(0, 40);
 
   // 4. Créer / mettre à jour le compte et ouvrir une session sur le site
-  const db = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), { auth: { persistSession: false } });
   const { data, error } = await db.rpc("bos_discord_login", {
     p_discord_id: user.id,
     p_username: String(user.username || user.id).toLowerCase().slice(0, 30),
